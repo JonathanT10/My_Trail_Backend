@@ -1,4 +1,9 @@
-./config
+node_modules/
+
+config/
+./config/
+
+
 
 # Logs
 logs

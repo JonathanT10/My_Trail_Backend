@@ -2,15 +2,15 @@ const connectDB = require('./startup/db');
 const express = require('express');
 const app = express();
 const cors = require('cors')
-const comments = require('../CloneTube_backend/routes/comments');
-const replies  = require('../CloneTube_backend/routes/comments');
+const posts = require('../My_Trail_Backend/routes/posts');
+const replies  = require('../My_Trail_Backend/routes/posts');
 
 connectDB();
 
 app.use(express.json());
 app.use(cors());
-app.use('/api/comments/', comments);
-app.use('/api/comments/replies', replies);
+app.use('/api/posts/', posts);
+app.use('/api/posts/replies', replies);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
