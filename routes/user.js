@@ -28,17 +28,15 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    try{
-        const user = await new User.find();
-
-        await user.save();
-        return res.send({ _id: user._id, name: user.name, email: user.email });
-}catch (ex) {
-    return res.status(500).send(`Internal Server Error: ${ex}`);
-}
-});
-
-
+    try {
+        const user = await User.find()
+            .select({ _id: 1, name: 1, email: 1})
+            return res.send(user);
+        
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+}); 
 
 module.exports = router;
 
