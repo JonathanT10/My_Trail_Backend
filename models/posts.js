@@ -15,7 +15,6 @@ const postsSchema = new mongoose.Schema({
     likes: {type: Number, default: 0},
     dislikes: {type: Number, default: 0},
     replies: [{ type: replySchema }],
-    videoId: {type: String, require: true},
     date: {type: Date, default: Date.now}
 })
 

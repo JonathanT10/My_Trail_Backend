@@ -1,7 +1,7 @@
  const { User } = require('../models/user');
  const { validate } = require('../models/user')
  const bcrypt = require('bcrypt');
- const express = requires('express');
+ const express = require('express');
  const router = express.Router();
 
 
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         user = new User({
             name: req.body.name,
             email: req.body.email,
-            passord: await bcrypt.hash(req.body.password, salt),
+            password: await bcrypt.hash(req.body.password, salt),
         });
 
         await user.save();
@@ -27,4 +27,18 @@ router.post('/', async (req, res) => {
 }
 });
 
+router.get('/', async (req, res) => {
+    try{
+        const user = await new User.find();
+
+        await user.save();
+        return res.send({ _id: user._id, name: user.name, email: user.email });
+}catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+}
+});
+
+
+
+module.exports = router;
 

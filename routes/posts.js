@@ -56,24 +56,24 @@ router.post('/', async (req, res) => {
 
 //POST route for replies
 
-router.post('/:id', async (req, res) => {
-    try {
+// router.post('/:id', async (req, res) => {
+//     try {
 
-        const replies = new Replies({
-            text: req.body.text,
-            likes: req.body.likes,
-            dislikes: req.body.dislikes,
-        });
-        const posts = await Posts.findByIdAndUpdate(req.params.id);
-        posts.replies.push(replies);
-        await posts.save();
+//         const replies = new Replies({
+//             text: req.body.text,
+//             likes: req.body.likes,
+//             dislikes: req.body.dislikes,
+//         });
+//         const posts = await Posts.findByIdAndUpdate(req.params.id);
+//         posts.replies.push(replies);
+//         await posts.save();
         
-        return res.send(posts);
+//         return res.send(posts);
 
-    }catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`);
-    }
-});
+//     }catch (ex) {
+//         return res.status(500).send(`Internal Server Error: ${ex}`);
+//     }
+// });
 
 // PUT route for likes and dislikes
 
