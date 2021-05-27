@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Wall = (props)=>{
     const [text, setText] = useState('');

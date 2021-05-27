@@ -3,6 +3,8 @@ import Post from './post';
 import NewPost from './newPost';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/wall.css';
 
 const Wall = (props)=>{
     const [text, setText] = useState('');
@@ -20,11 +22,11 @@ const Wall = (props)=>{
 
     return(
         <Container fluid>
-            <Row>
+            <Row className="postStyle">
                 <Post />
             </Row>
-            <Row>                
-                <NewPost />
+            <Row className="newPostStyle">                
+                <NewPost/>
             </Row>
         </Container>
     )
