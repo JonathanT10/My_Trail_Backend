@@ -2,26 +2,17 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import Wall from './components/wall';
+import { Switch, Route } from 'react-router-dom';
 
-const App = (props)=>{
-    const [text, setText] = useState('');
-
-    const handleChange = (event) => {
-        setText(event.target.value);
-      };
-
-    const handleClick =()=>{
-        const newComment={
-        }
-        props.addNewComment(newComment);
-        setText('');
-    }
+function App() {
 
     return(
-        <div>
-          <Wall />
+        <div className="App">
+          <Switch>
+            <Route path="/" exact component={Wall} />
+          </Switch>
         </div>
-    )
+    );
 }
 
 export default App;
