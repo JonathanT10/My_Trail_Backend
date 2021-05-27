@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 const Wall = (props)=>{
     const [text, setText] = useState('');
@@ -15,9 +17,11 @@ const Wall = (props)=>{
     }
 
     return(
-        <div>
-            newPost
-        </div>
+        <Container fluid>
+            <Row>
+                New Post
+            </Row>
+        </Container>
     )
 }
 

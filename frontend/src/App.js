@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import Wall from './components/wall';
+
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -13,6 +14,6 @@ function App() {
           </Switch>
         </div>
     );
-}
+  }
 
-export default App;
+  export default App;
