@@ -94,7 +94,7 @@ router.put('/:id', auth, async (req, res) => {
         );
 
         if (!posts)
-            return res.status(400).send(`The comment with is "${req.params.id}" does not exist.`);
+            return res.status(400).send(`The Post with id "${req.params.id}" does not exist.`);
 
             await posts.save();
 
