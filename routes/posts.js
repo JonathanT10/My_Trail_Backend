@@ -41,6 +41,9 @@ router.post('/', async (req, res) => {
             text: req.body.text,
             likes: req.body.likes,
             dislikes: req.body.dislikes,
+            location: req.body.location,
+            mood: req.body.mood,
+            rating: req.body.rating,
             replies: req.body.replies,
             userId: req.body.userId
         });

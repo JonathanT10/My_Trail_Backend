@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, salt),
+            friendsList: req.body.friendsList,
         });
 
         await user.save();
@@ -27,16 +28,51 @@ router.post('/', async (req, res) => {
 }
 });
 
+
+router.get('/:_id', async (req, res) => {
+    try{
+         const user = await User.findById(req.params._id);
+
+         if (!user)
+         return res.status(400).send(`The user with ID: ${_id} does not exist`);
+         return res.send(user);
+    }catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+})
+
+
 router.get('/', async (req, res) => {
     try {
         const user = await User.find()
-            .select({ _id: 1, name: 1, email: 1})
+            .select({ _id: 1, name: 1, email: 1, friendsList: 1})
             return res.send(user);
         
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 }); 
+
+router.put('/:_id', async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(
+            req.params._id,
+            {
+                friendsList: [req.body.friendsList],
+            },
+            { new: true }
+        );
+
+        if (!user)
+        return res.status(400).send(`The user with ID: ${ex} does not exist`);
+
+        await user.save();
+
+        return res.send(user);
+    } catch (ex) {
+        return res.status(500).send(`Inter Server Error: ${ex}`);
+    }
+});
 
 module.exports = router;
 
