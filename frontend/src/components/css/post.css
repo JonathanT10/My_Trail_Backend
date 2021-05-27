@@ -1,0 +1,38 @@
+.postStyle{
+    border-style: solid;
+    border-color: black;
+    padding-left: 25px;
+    background-color: rgb(76, 150, 76)
+}
+.textBody{
+    background-color: white;
+    min-height: 70px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}
+.LD{
+    background-color: white;
+    padding-right: 5px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}
+.secondColumn{
+    background-color: white;
+}
+.miniRow{
+    padding-left: 5px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}
+.imgColumn{
+    background-color: white;
+    padding: 5px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}
+.profileColumn{
+    background-color: white;
+    padding: 5px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}

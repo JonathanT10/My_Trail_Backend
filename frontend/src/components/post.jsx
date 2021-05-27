@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import '../components/css/post.css';
 
 const Wall = (props) => {
   const [text, setText] = useState("");
@@ -27,34 +28,34 @@ const Wall = (props) => {
   };
 
   return (
-    <Container fluid>
-      <Row>
+    <Container fluid className="postStyle">
+      <Row className="topRow">
         <Col sm={8}>
-          <Row>
+          <Row className="textBody">
             <TextBody />
           </Row>
-          <Row>
-            <Col sm={4}>
+          <Row className="bottomRow">
+            <Col sm={2} className="LD">
               <LD />
             </Col>
-            <Col sm={8}>
-              <Row>
+            <Col sm={10} className="secondColumn">
+              <Row className="miniRow">
                 <Location />
               </Row>
-              <Row>
+              <Row className="miniRow">
                 <Rating />
                 <Mood />
               </Row>
-              <Row>
+              <Row className="miniRow">
                 <Reply />
               </Row>
             </Col>
           </Row>
         </Col>
-        <Col sm={2}>
+        <Col sm={2} className="imgColumn">
           <Img />
         </Col>
-        <Col sm={2}>
+        <Col sm={2} className="profileColumn">
           <Profile />
         </Col>
       </Row>

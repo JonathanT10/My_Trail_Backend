@@ -1,0 +1,12 @@
+.newPostStyle{
+    border-style: solid;
+    border-color: black;
+    padding-left: 25px;
+    background-color: rgb(76, 150, 76)
+}
+.textBody{
+    background-color: white;
+    min-height: 70px;
+    border-style: solid;
+    border-color: rgb(137, 137, 137);
+}

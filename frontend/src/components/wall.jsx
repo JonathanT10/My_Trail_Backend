@@ -2,8 +2,8 @@ import {useState} from 'react';
 import Post from './post';
 import NewPost from './newPost';
 import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/wall.css';
 
 const Wall = (props)=>{
@@ -20,14 +20,18 @@ const Wall = (props)=>{
         setText('');
     }
 
+    // post needs to map all posts matching logged in user, and everyone on friends list
+
     return(
         <Container fluid>
-            <Row className="postStyle">
-                <Post />
-            </Row>
-            <Row className="newPostStyle">                
-                <NewPost/>
-            </Row>
+            <Table>                    
+                <Row className="postStyle">
+                    <Post />
+                </Row>
+                <Row className="newPostStyle">                
+                    <NewPost/>
+                </Row>
+            </Table>
         </Container>
     )
 }
