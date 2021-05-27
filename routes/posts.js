@@ -1,6 +1,7 @@
 const {Posts,Replies} = require('../models/Posts')
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 
 //GET posts
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 
 //GET posts by ID
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try{
 
         const posts = await Posts.find({userId: req.params.id});
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res) => {
 
 // POST route for posts
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     try {
 
         const posts = new Posts({
@@ -80,7 +81,7 @@ router.post('/', async (req, res) => {
 
 // PUT route for likes and dislikes
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     try {
 
         const posts = await Posts.findByIdAndUpdate(

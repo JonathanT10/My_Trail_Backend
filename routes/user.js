@@ -3,6 +3,34 @@
  const bcrypt = require('bcrypt');
  const express = require('express');
  const router = express.Router();
+ const multer = require('multer');
+ const auth = require('../middleware/auth');
+
+ const storage = multer.diskStorage({
+     destination: function (req, file, cb) {
+         cb(null, './uploads/');
+     },
+     filename: function (req, file, cb) {
+         cb(null, Date.now() + file.originalname);
+     }
+ });
+
+ const filefilter = (req, file, cb) => {
+     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+         cb(null, true);
+     } else {
+         cb(null,fales);
+     }
+ }
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: filefilter
+});
+
 
 
 router.post('/', async (req, res) => {
@@ -22,14 +50,20 @@ router.post('/', async (req, res) => {
         });
 
         await user.save();
-        return res.send({ _id: user._id, name: user.name, email: user.email });
+
+        const token = user.generateAuthToken();
+        
+        return res
+            .header('x-auth-token', token)
+            .header('access-control-expose-headers', 'x-auth-token')
+            .send({ _id: user._id, name: user.name, email: user.email });
 }catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
 }
 });
 
 
-router.get('/:_id', async (req, res) => {
+router.get('/:_id', auth, async (req, res) => {
     try{
          const user = await User.findById(req.params._id);
 
@@ -53,7 +87,7 @@ router.get('/', async (req, res) => {
     }
 }); 
 
-router.put('/:_id', async (req, res) => {
+router.put('/:_id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
             req.params._id,
@@ -73,6 +107,28 @@ router.put('/:_id', async (req, res) => {
         return res.status(500).send(`Inter Server Error: ${ex}`);
     }
 });
+
+// router.put("/uploadmulter")(upload.single(imageData)('/:_id', async (req, res) => {
+//    try{
+//     const user = await User.findByIdAndUpdate(
+//         req.params._id,
+//         {
+//         imageName: req.body.imageName,
+//         imageData: req.file.path
+//     },
+//     { new: true }
+//     );
+
+//     if (!user)
+//     return res.status(400).send(`The user with ID: ${_id} does not exist`);
+
+//     await user.save();
+//     return res.send(user);
+// } catch (ex) {
+//     return res.status(500).send(`Internal Server Error: ${ex}`);
+// }
+// }));
+
 
 module.exports = router;
 
