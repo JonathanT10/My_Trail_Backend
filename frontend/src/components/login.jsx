@@ -47,7 +47,7 @@ const Wall = (props)=>{
                 <Row className="postStyle">
                     <Form>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
+                            <Form.Label className="loginText">Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" onChange={emailChange}/>
                             <Form.Text className="text">
                             -----We'll never share your email with anyone else.
@@ -55,7 +55,7 @@ const Wall = (props)=>{
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className="loginText">Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange={passwordChange}/>
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={()=>handleClick(email, password)}>
