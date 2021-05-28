@@ -4,11 +4,12 @@ import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Wall from '../components/wall';
 import './css/wall.css';
 import axios from 'axios';
 import { useParams } from 'react-router';
 
-const Wall = (props)=>{
+const Login= () =>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,18 +20,20 @@ const Wall = (props)=>{
         setPassword(event.target.value);
     };
 
-    const handleClick = async (email, password) =>{
+    const handleClick = (event) => {
+        event.preventDefault();
         axios
-            .post(`http://localhost:5000/api/auth/`, {
-                params:{email: email, password: password}
-                })
+            .post(`http://localhost:5000/api/auth/`, {email: email, password: password})
             .then(response => {
-                const { token } = response.data;
+                console.log(response);
+                const  token  = response.data;
                 localStorage.setItem('token', token);
+                window.location = '/wall';
                 console.log(token);
-            })
+            }).catch(error => {
+                console.log('Error', error);
+            });
     }
-
 
     // useEffect(() => {
     //     axios
@@ -45,7 +48,7 @@ const Wall = (props)=>{
         <Container fluid>
             <Table>                    
                 <Row className="postStyle">
-                    <Form>
+                    <Form  onSubmit={(event)=>handleClick(event)}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label className="loginText">Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" onChange={emailChange}/>
@@ -58,7 +61,7 @@ const Wall = (props)=>{
                             <Form.Label className="loginText">Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange={passwordChange}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={()=>handleClick(email, password)}>
+                        <Button variant="primary" type="submit">
                             Submit
                         </Button>
                         </Form>
@@ -68,4 +71,4 @@ const Wall = (props)=>{
     )
 }
 
-export default Wall;
+export default Login;
