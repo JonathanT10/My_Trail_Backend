@@ -15,6 +15,7 @@ function App() {
  const jwt = localStorage.getItem('token');
  try{
    setUser(jwtDecode(jwt));
+   console.log.apply(jwt)
    
  } catch {
 
@@ -23,14 +24,11 @@ function App() {
     return(
         <>
           <Switch>
-            {console.log(user)}
-            <Route path="/wall" exact component={Wall} />
             <Route path="/" exact component={Login} render={props => {
               if (!user) {
                 return <Redirect to="/" />;
               } else { 
-                return < Route path="/wall" exact component={Wall}/>
-
+                return <Wall {...props} user={user}/>
               }
             }}
              />
