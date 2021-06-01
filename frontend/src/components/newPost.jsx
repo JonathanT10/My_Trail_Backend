@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/newPost.css';
 
-const Wall = (props)=>{
+const NewPost = (props)=>{
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -27,4 +27,4 @@ const Wall = (props)=>{
     )
 }
 
-export default Wall;
+export default NewPost;

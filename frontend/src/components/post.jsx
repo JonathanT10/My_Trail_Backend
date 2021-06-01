@@ -14,7 +14,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import '../components/css/post.css';
 
-const Wall = (props) => {
+const Post = (props) => {
   const [text, setText] = useState("");
 
   const handleChange = (event) => {
@@ -63,4 +63,4 @@ const Wall = (props) => {
   );
 };
 
-export default Wall;
+export default Post;

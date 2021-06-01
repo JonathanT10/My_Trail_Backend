@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 
-const Wall = (props)=>{
+const ErrorPage = (props)=>{
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -33,4 +33,4 @@ const Wall = (props)=>{
     )
 }
 
-export default Wall;
+export default ErrorPage;

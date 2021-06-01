@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 
-const Register = (props)=>{
+const LandingPage = (props)=>{
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -26,11 +26,11 @@ const Register = (props)=>{
         <Container fluid>
             <Table> 
                 <Row className="postStyle">
-                    Register page here
+                    Welcome to MyTrail! Please login
                 </Row>
             </Table>
         </Container>
     )
 }
 
-export default Register;
+export default LandingPage;

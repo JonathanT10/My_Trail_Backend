@@ -108,7 +108,7 @@ router.put('/:_id', auth, async (req, res) => {
     }
 });
 
-// router.put("/uploadmulter")(upload.single(imageData)('/:_id', async (req, res) => {
+// router.post("/uploadmulter/:userId")(upload.single(imageData)('/:_id', async (req, res) => {
 //    try{
 //     const user = await User.findByIdAndUpdate(
 //         req.params._id,
