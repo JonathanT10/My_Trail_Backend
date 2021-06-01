@@ -28,7 +28,7 @@ const Wall = (props)=>{
                 <Row className="postStyle">
                     <Post />
                 </Row>
-                <Row className="newPostStyle">                
+                <Row className="newPostStyle">
                     <NewPost/>
                 </Row>
             </Table>

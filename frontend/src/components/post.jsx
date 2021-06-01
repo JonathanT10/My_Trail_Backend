@@ -52,10 +52,7 @@ const Post = (props) => {
             </Col>
           </Row>
         </Col>
-        <Col sm={2} className="imgColumn">
-          <Img />
-        </Col>
-        <Col sm={2} className="profileColumn">
+        <Col sm={4} className="profileColumn">
           <Profile />
         </Col>
       </Row>

@@ -23,7 +23,7 @@ function App() {
                 setUser(jwtDecode(jwt))
                 console.log(user)
                 if (!user) {
-                  return <Redirect to="/" />;
+                  return <Register />;
                 } else { 
                   return <Wall {...props} user={user}/>
                 }

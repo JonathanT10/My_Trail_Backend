@@ -108,26 +108,26 @@ router.put('/:_id', auth, async (req, res) => {
     }
 });
 
-// router.post("/uploadmulter/:userId")(upload.single(imageData)('/:_id', async (req, res) => {
-//    try{
-//     const user = await User.findByIdAndUpdate(
-//         req.params._id,
-//         {
-//         imageName: req.body.imageName,
-//         imageData: req.file.path
-//     },
-//     { new: true }
-//     );
+router.post("/uploadmulter/",upload.single('imageData'), async (req, res) => {
+   try{
+    const user = await User.findByIdAndUpdate(
+        req.params._id,
+        {
+        imageName: req.body.imageName,
+        imageData: req.file.path
+    },
+    { new: true }
+    );
 
-//     if (!user)
-//     return res.status(400).send(`The user with ID: ${_id} does not exist`);
+    if (!user)
+    return res.status(400).send(`The user with ID: ${_id} does not exist`);
 
-//     await user.save();
-//     return res.send(user);
-// } catch (ex) {
-//     return res.status(500).send(`Internal Server Error: ${ex}`);
-// }
-// }));
+    await user.save();
+    return res.send(user);
+} catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+}
+});
 
 
 module.exports = router;

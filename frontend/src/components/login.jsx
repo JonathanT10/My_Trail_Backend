@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Wall from '../components/wall';
 import './css/wall.css';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Login= () =>{
     const [email, setEmail] = useState('');
@@ -31,6 +31,7 @@ const Login= () =>{
                 window.location = '/wall';
                 console.log(token);
             }).catch(error => {
+                //invalid alert here
                 console.log('Error', error);
             });
     }
@@ -62,8 +63,14 @@ const Login= () =>{
                             <Form.Control type="password" placeholder="Password" onChange={passwordChange}/>
                         </Form.Group>
                         <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                            Submit  
+                        </Button>"
+                            <Link to="/register">
+                                <Button variant="primary">
+                                    Register
+                                </Button>
+                            </Link>
+                            
                         </Form>
                 </Row>
             </Table>
