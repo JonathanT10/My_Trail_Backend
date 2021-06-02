@@ -12,7 +12,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import '../components/css/post.css';
-import Profile from "./profile";
 
 const Post = (props) => {
   const [text, setText] = useState("");
@@ -53,7 +52,7 @@ const Post = (props) => {
           </Row>
         </Col>
         <Col sm={4} className="profileColumn">
-         <Profile />
+         Profile Image Here
         </Col>
       </Row>
     </Container>
