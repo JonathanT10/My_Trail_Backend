@@ -53,7 +53,7 @@ const Login= () =>{
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label className="loginText">Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" onChange={emailChange}/>
-                            <Form.Text className="text">
+                            <Form.Text className="loginText">
                             -----We'll never share your email with anyone else.
                             </Form.Text>
                         </Form.Group>
@@ -64,7 +64,7 @@ const Login= () =>{
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit  
-                        </Button>"
+                        </Button>
                             <Link to="/register">
                                 <Button variant="primary">
                                     Register

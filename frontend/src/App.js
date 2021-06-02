@@ -17,7 +17,7 @@ function App() {
   
 
     return(
-        <div>
+        <div className="background">
           <Switch>
             <Route path="/" exact component={Login}  render={props => {
                 setUser(jwtDecode(jwt))
