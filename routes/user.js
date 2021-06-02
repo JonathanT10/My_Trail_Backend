@@ -80,7 +80,7 @@ router.get('/:_id', auth, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const user = await User.find()
-            .select({ _id: 1, name: 1, email: 1, friendsList: 1})
+            .select({ _id: 1, name: 1, email: 1, friendsList: 1, aboutMe: 1})
             return res.send(user);
         
     } catch (ex) {
@@ -116,7 +116,6 @@ router.put('/:id', auth, async (req, res) => {
             {
                 aboutMe: req.body.aboutMe,
             },
-            { new: true }
         );
 
         if (!user)
