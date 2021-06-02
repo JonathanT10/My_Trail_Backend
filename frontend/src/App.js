@@ -30,7 +30,7 @@ function App() {
                 }
               }}/>
             <Route path="/login" component={Login} />
-            <Route path="/wall" component={Wall} />
+            <Route path="/wall" component={Wall}/>
             <Route path="/register" component={Register} />
             <Route path="/error" component={ErrorPage} />
             <Route path="/profile" component={Profile} />

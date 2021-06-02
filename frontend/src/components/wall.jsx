@@ -21,15 +21,17 @@ const Wall = (props)=>{
     }
 
     // post needs to map all posts matching logged in user, and everyone on friends list
+    
 
     return(
         <Container fluid>
+            profile link here
             <Table>                    
                 <Row className="postStyle">
                     <Post />
                 </Row>
                 <Row className="newPostStyle">
-                    <NewPost/>
+                    <NewPost />
                 </Row>
             </Table>
         </Container>
