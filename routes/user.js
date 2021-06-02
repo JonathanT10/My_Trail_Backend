@@ -88,10 +88,11 @@ router.get('/', async (req, res) => {
     }
 }); 
 
+// add friends to friendslist of a user
 router.put('/:id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
-            req.params.id,
+            req.params._id,
             {
                 friendsList: [req.body.friendsList],
             },
@@ -109,10 +110,11 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
+// update about me section
 router.put('/:id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
-            req.params.id,
+            req.params._id,
             {
                 aboutMe: req.body.aboutMe,
             },
@@ -129,6 +131,7 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
+// upload a profile image
 router.put("/uploadmulter/:_id",upload.single('img'), async (req, res) => {
    try{
     const user = await User.findByIdAndUpdate(
