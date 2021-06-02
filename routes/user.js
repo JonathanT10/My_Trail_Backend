@@ -32,7 +32,7 @@ const upload = multer({
 });
 
 
-
+//post a new user
 router.post('/', auth, async (req, res) => {
     try{
         const { error } = validate(req.body)
@@ -62,7 +62,7 @@ router.post('/', auth, async (req, res) => {
 }
 });
 
-
+//get a user from ID
 router.get('/:_id', auth, async (req, res) => {
     try{
          const user = await User.findById(req.params._id);
@@ -75,7 +75,7 @@ router.get('/:_id', auth, async (req, res) => {
     }
 })
 
-
+//get a user and return only a couple variables
 router.get('/', async (req, res) => {
     try {
         const user = await User.find()
@@ -87,6 +87,7 @@ router.get('/', async (req, res) => {
     }
 }); 
 
+// make changes to friendslist
 router.put('/:_id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
@@ -108,6 +109,7 @@ router.put('/:_id', auth, async (req, res) => {
     }
 });
 
+//upload profile image
 router.post("/uploadmulter/",upload.single('imageData'), async (req, res) => {
    try{
     const user = await User.findByIdAndUpdate(
