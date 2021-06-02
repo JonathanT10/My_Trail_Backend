@@ -3,7 +3,6 @@ import Img from "./subComponents/img";
 import LD from "./subComponents/LD";
 import Location from "./subComponents/location";
 import Mood from "./subComponents/mood";
-import Profile from "./subComponents/profile";
 import TextBody from "./subComponents/textBody";
 import Reply from "./subComponents/reply";
 import Rating from "./subComponents/rating";
@@ -13,6 +12,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import '../components/css/post.css';
+import Profile from "./profile";
 
 const Post = (props) => {
   const [text, setText] = useState("");
@@ -53,7 +53,7 @@ const Post = (props) => {
           </Row>
         </Col>
         <Col sm={4} className="profileColumn">
-          <Profile />
+         <Profile />
         </Col>
       </Row>
     </Container>
