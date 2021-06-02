@@ -47,6 +47,7 @@ router.post('/', auth, async (req, res) => {
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, salt),
             friendsList: req.body.friendsList,
+            aboutMe: req.body.aboutMe
         });
 
         await user.save();
@@ -79,7 +80,7 @@ router.get('/:_id', auth, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const user = await User.find()
-            .select({ _id: 1, name: 1, email: 1, friendsList: 1})
+            .select({ _id: 1, name: 1, email: 1, friendsList: 1, aboutMe: 1})
             return res.send(user);
         
     } catch (ex) {
@@ -95,6 +96,26 @@ router.put('/:id', auth, async (req, res) => {
                 friendsList: [req.body.friendsList],
             },
             { new: true }
+        );
+
+        if (!user)
+        return res.status(400).send(`The user with ID: ${ex} does not exist`);
+
+        await user.save();
+
+        return res.send(user);
+    } catch (ex) {
+        return res.status(500).send(`Inter Server Error: ${ex}`);
+    }
+});
+
+router.put('/:id', auth, async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                aboutMe: req.body.aboutMe,
+            },
         );
 
         if (!user)
