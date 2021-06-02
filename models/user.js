@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true, minlength: 5, maxlength: 1024 },
     friendsList: { type: [String]},
     img: { data: Buffer, contentType: String },
+    aboutMe: { type: String, minlength: 5, maxlength: 500 }
 });
 
 userSchema.methods.generateAuthToken = function (){
