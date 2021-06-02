@@ -8,6 +8,7 @@ import ErrorPage from './components/errorpage';
 import LandingPage from './components/landingpage';
 import jwtDecode from 'jwt-decode';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Profile from "./components/profile";
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/wall" component={Wall} />
             <Route path="/register" component={Register} />
             <Route path="/error" component={ErrorPage} />
+            <Route path="/profile" component={Profile} />
           </Switch>
         </div>
     );

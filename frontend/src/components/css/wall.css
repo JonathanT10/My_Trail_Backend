@@ -22,3 +22,14 @@
     background-size: cover;
     padding-top: 20px;
 }
+.aboutMeText{
+    background-color: white;
+}
+.profileContainer{
+    padding-left: 20px;
+    border-style: solid;
+    border-color: gray;
+}
+.friendsList{
+    background-color: white;
+}
