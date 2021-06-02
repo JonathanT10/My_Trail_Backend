@@ -87,11 +87,10 @@ router.get('/', async (req, res) => {
     }
 }); 
 
-// make changes to friendslist
-router.put('/:_id', auth, async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
-            req.params._id,
+            req.params.id,
             {
                 friendsList: [req.body.friendsList],
             },
@@ -109,18 +108,14 @@ router.put('/:_id', auth, async (req, res) => {
     }
 });
 
-//upload profile image
-router.post("/uploadmulter/",upload.single('imageData'), async (req, res) => {
+router.put("/uploadmulter/:_id",upload.single('img'), async (req, res) => {
    try{
     const user = await User.findByIdAndUpdate(
         req.params._id,
         {
-        imageName: req.body.imageName,
-        imageData: req.file.path
-    },
-    { new: true }
+        img: req.file.path
+    }
     );
-
     if (!user)
     return res.status(400).send(`The user with ID: ${_id} does not exist`);
 

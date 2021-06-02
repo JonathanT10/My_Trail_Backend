@@ -64,7 +64,7 @@ const Login= () =>{
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit  
-                        </Button>
+                        </Button> {'   '}
                             <Link to="/register">
                                 <Button variant="primary">
                                     Register
