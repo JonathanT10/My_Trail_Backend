@@ -1,4 +1,4 @@
-import {useState} from 'react';
+// import {useState} from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Post from './post';
@@ -12,18 +12,23 @@ import './css/wall.css';
 
 
 const Wall = (props)=>{
-    const [currUser, setCurrUser] = useState();
-    const [userObject, setUserObject] = useState();
     const jwt = localStorage.getItem('token');
-    setCurrUser(jwtDecode(jwt));
-    const authUser = async() => {
-        console.log("auth trigger test");
-      const  response =  await axios.create.get(`http://localhost:5000/api/user/${currUser._id}`)
-        console.log(response);
-        setUserObject(response);
-      }
-    
+    const userObject = jwtDecode(jwt);
+
+    const authUser = async ()=>{
+        console.log("auth trigger test")
+        const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+        console.log(user.data);
+        return user;
+    }
+
     const user = authUser();
+
+    
+    const logOut = () => {
+        localStorage.removeItem('token');
+        window.location = '/';
+    }
  
     // const [text, setText] = useState('');
 
@@ -40,18 +45,15 @@ const Wall = (props)=>{
 
     // post needs to map all posts matching logged in user, and everyone on friends list
 
-    console.log(userObject);
-    
-
-    
-
-
     return(
         <Container fluid>
             <Row className="profileButton">   
                 <Button className="btn btn-success btn-md">
                         Profile
-                </Button> 
+                </Button>         
+                <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
+                        Log Out
+                </Button>  
             </Row>               
                 <Row className="postStyle">
                     <Post />

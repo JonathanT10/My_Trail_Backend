@@ -13,31 +13,20 @@ const Profile = (props)=>{
     const jwt = localStorage.getItem('token');
     const userObject = jwtDecode(jwt);
 
-
-    const authUser = async ()=>{
+    const authUser = async (userObject, jwt)=>{
         console.log("auth trigger test")
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
         console.log(user.data);
         return user;
     }
 
-    const user = authUser();
+    const user = authUser(userObject, jwt);
 
-    // const handleChange = (event) => {
-    //     setText(event.target.value);
-    //   };
-
-    // const handleClick =()=>{
-    //     const newComment={
-    //     }
-    //     props.addNewComment(newComment);
-    //     setText('');
-    // }
     return(
         <Container className="profileContainer">
             <Row>  
                 <Col>
-                    {/* <a href={"../images/" + {user.img}} /> */}img here
+                    Img Here
                 </Col>  
                 <Col>
                     <Row className="profileText">
