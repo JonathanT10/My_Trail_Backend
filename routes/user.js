@@ -110,6 +110,28 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
+//place to store friend requests
+router.put('/:id/pendingfriends', auth, async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                pendingFriends: [req.body.pendingFriends],
+            },
+            { new: true }
+        );
+
+        if (!user)
+        return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
+
+        await user.save();
+
+        return res.send(user);
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
+
 // update about me section
 router.put('/:id/aboutme', auth, async (req, res) => {
     try{
