@@ -1,4 +1,6 @@
-// import {useState} from 'react';
+import {useState} from 'react';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 import Post from './post';
 import NewPost from './newPost';
 import Container from 'react-bootstrap/Container';
@@ -6,22 +8,23 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 // import { useState } from "react";
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
-const Wall = () =>{
+
+
+const Wall = (props)=>{
+    const [currUser, setCurrUser] = useState();
+    const [userObject, setUserObject] = useState();
     const jwt = localStorage.getItem('token');
-    const userObject = jwtDecode(jwt);
-
-
-    const authUser = async ()=>{
-        console.log("auth trigger test")
-        const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-        console.log(user.data);
-        return user;
-    }
-
+    setCurrUser(jwtDecode(jwt));
+    const authUser = async() => {
+        console.log("auth trigger test");
+      const  response =  await axios.create.get(`http://localhost:5000/api/user/${currUser._id}`)
+        console.log(response);
+        setUserObject(response);
+      }
+    
     const user = authUser();
+ 
     // const [text, setText] = useState('');
 
     // const handleChange = (event) => {
@@ -36,7 +39,12 @@ const Wall = () =>{
     // }
 
     // post needs to map all posts matching logged in user, and everyone on friends list
+
+    console.log(userObject);
     
+
+    
+
 
     return(
         <Container fluid>

@@ -33,8 +33,6 @@ const Profile = (props)=>{
     //     props.addNewComment(newComment);
     //     setText('');
     // }
-
-
     return(
         <Container className="profileContainer">
             <Row>  
