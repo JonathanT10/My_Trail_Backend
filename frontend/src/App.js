@@ -27,11 +27,11 @@ function App() {
     return(
       <div className="background">
         <Switch>
-          <Route path="/" component={Login} />
-          <Route path="/wall" component={Wall} />
-          <Route path="/register" component={Register} />
-          <Route path="/error" component={ErrorPage} />
-          <Route path="/profile" component={Profile} />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/wall" component={Wall} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/error" component={ErrorPage} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </div>
   );

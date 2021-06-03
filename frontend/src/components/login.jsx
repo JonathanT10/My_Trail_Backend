@@ -26,7 +26,7 @@ const Login = () =>{
             .then(response => {
                 const  token  = response.data;
                 localStorage.setItem('token', token);
-                window.location="http://localhost:3000/wall";
+                window.location="/wall";
             }).catch(error => {
                 alert("Username or Password invalid, please try again")
                 console.log('Error', error);

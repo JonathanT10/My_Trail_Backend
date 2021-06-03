@@ -16,6 +16,7 @@ const Wall = () =>{
     const authUser = ()=>{
         console.log("auth trigger test")
         const user = axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+        console.log(user);
         return user;
     }
 
