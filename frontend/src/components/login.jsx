@@ -4,7 +4,6 @@ import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Wall from '../components/wall';
 import './css/wall.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -25,11 +24,9 @@ const Login= () =>{
         axios
             .post(`http://localhost:5000/api/auth/`, {email: email, password: password})
             .then(response => {
-                console.log(response);
                 const  token  = response.data;
                 localStorage.setItem('token', token);
                 window.location = '/wall';
-                console.log(token);
             }).catch(error => {
                 //invalid alert here
                 console.log('Error', error);

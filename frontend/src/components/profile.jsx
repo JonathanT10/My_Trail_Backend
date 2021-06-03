@@ -1,18 +1,19 @@
-import {useState, useEffect} from 'react';
+// import {useState, useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
-import axios from 'axios';
+// import axios from 'axios';
+// import jwtDecode from 'jwt-decode';
 
 
 const Profile = (props)=>{
-    const [user, setUser] = useState();
-
-    const sessionUser = props;
+    // const [user, setUser] = useState();
+    // const jwt = localStorage.getItem('token');
+    // setUser(jwtDecode(jwt));
+    console.log(props._id)
 
     // const handleChange = (event) => {
     //     setText(event.target.value);
@@ -25,26 +26,21 @@ const Profile = (props)=>{
     //     setText('');
     // }
 
-    useEffect(() => {
-      axios
-        .get(`http://localhost:5000/api/user/${sessionUser._id}`)
-        .then((response) => setUser(response.data))
-    }, );
-    
-    console.log(props.data)
 
     return(
         <Container className="profileContainer">
             <Row>  
                 <Col>
-                    {/* <a href={"../images/" + {user.img}} /> */}
-                </Col>              
-                <Col className="aboutMeText">
-                    <AboutMe />
+                    {/* <a href={"../images/" + {user.img}} /> */}img here
+                </Col>  
+                <Col>
+                    <Row className="profileText">
+                        <AboutMe  props={props}/>
+                    </Row>
+                    <Row className="profileText">
+                        <FriendsList  props={props}/>
+                    </Row>                
                 </Col>
-            </Row>
-            <Row className="friendsList">
-                <FriendsList />
             </Row>
         </Container>
     )

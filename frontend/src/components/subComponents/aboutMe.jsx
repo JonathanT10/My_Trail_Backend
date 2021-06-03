@@ -1,23 +1,23 @@
-import {useState} from 'react';
+// import {useState} from 'react';
 
 const AboutMe = (props)=>{
-    const [text, setText] = useState('');
+    // const [text, setText] = useState('');
 
-    const handleChange = (event) => {
-        setText(event.target.value);
-      };
+    // const handleChange = (event) => {
+    //     setText(event.target.value);
+    //   };
 
-    const handleClick =()=>{
-        const newComment={
-        }
-        props.addNewComment(newComment);
-        setText('');
-    }
+    // const handleClick =()=>{
+    //     const newComment={
+    //     }
+    //     props.addNewComment(newComment);
+    //     setText('');
+    // }
 
     return(
-        <div>
-            about me
-        </div>
+        <>
+            aboutme text{props.aboutMe}
+        </>
     )
 }
 

@@ -22,7 +22,7 @@
     background-size: cover;
     padding-top: 20px;
 }
-.aboutMeText{
+.profileText{
     background-color: white;
 }
 .profileContainer{
@@ -30,6 +30,6 @@
     border-style: solid;
     border-color: gray;
 }
-.friendsList{
+.profileContent{
     background-color: white;
 }
