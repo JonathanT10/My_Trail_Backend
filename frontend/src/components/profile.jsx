@@ -1,19 +1,25 @@
-// import {useState, useEffect} from 'react';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import './css/wall.css';
-import AboutMe from './subComponents/aboutMe';
-import FriendsList from './subComponents/friendsList';
-// import axios from 'axios';
-// import jwtDecode from 'jwt-decode';
-
+import {useState} from 'react';
+import { Container } from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 const Profile = (props)=>{
-    // const [user, setUser] = useState();
-    // const jwt = localStorage.getItem('token');
-    // setUser(jwtDecode(jwt));
-    console.log(props._id)
+    const [userInfo, setUserInfo] = useState();
+    const [userA, setUserA] = useState();
+    const jwt = localStorage.getItem('token');
+    setUserA(jwtDecode(jwt));
+    const infoReq = async() => {
+        const response = await axios.put( `http://localhost:5000/api/user/${userA._id}/pendingfriends`,
+        {
+            "pendingFriends": "60b78076b267f2349cdd467c"
+        });
+        console.log(response);
+        setUserInfo(response);
+    }
+
+
 
     // const handleChange = (event) => {
     //     setText(event.target.value);
@@ -25,24 +31,16 @@ const Profile = (props)=>{
     //     props.addNewComment(newComment);
     //     setText('');
     // }
-
-
+    infoReq()
     return(
-        <Container className="profileContainer">
-            <Row>  
-                <Col>
-                    {/* <a href={"../images/" + {user.img}} /> */}img here
-                </Col>  
-                <Col>
-                    <Row className="profileText">
-                        <AboutMe  props={props}/>
-                    </Row>
-                    <Row className="profileText">
-                        <FriendsList  props={props}/>
-                    </Row>                
-                </Col>
-            </Row>
-        </Container>
+        
+      <Container>
+          <Table>
+              <Row>
+             {userInfo}
+              </Row>
+          </Table>
+      </Container>
     )
 }
 

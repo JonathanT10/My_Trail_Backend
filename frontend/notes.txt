@@ -1,0 +1,10 @@
+  
+  
+  
+  const authUser = async() => {
+    console.log("auth trigger test");
+    await axios
+    .get(`http://localhost:5000/api/user/${user.id}`)
+    .then((response) => setUser(response.data))
+  }
+   

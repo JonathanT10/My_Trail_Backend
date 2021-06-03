@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import axios from "axios";
+// import axios from "axios";
 import Wall from './components/wall';
 import Login from './components/login';
 import Register from './components/register';
@@ -14,19 +14,25 @@ import { Switch, Route } from 'react-router-dom';
 function App() {
   const [user, setUser] = useState();
   const jwt = localStorage.getItem('token');
-   
+
+  const logOut = () => {
+    localStorage.removeItem('token');
+    window.location = '/';
+  }
+
     return(
       <div className="background">
+        <ul>
+            <li onClick={()=> logOut()}>Log out</li>
+          </ul>
         <Switch>
+          
           <Route path="/" exact component={Login}  render={props => {
-              setUser(jwtDecode(jwt))
+              setUser(jwtDecode(jwt));
               if (!user) {
                 return <Register />;
               } else { 
-                axios
-                  .get(`http://localhost:5000/api/user/${user._id}`)
-                  .then((response) => setUser(response.data))
-                return <Wall props={user}/>
+                return <Wall {...props} user={user}/>
               }
             }}/>
           <Route path="/login" component={Login} />
