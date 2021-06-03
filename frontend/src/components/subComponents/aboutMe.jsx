@@ -16,7 +16,7 @@ const AboutMe = (props)=>{
 
     return(
         <>
-            aboutme text{props.aboutMe}
+            aboutme text{props}
         </>
     )
 }

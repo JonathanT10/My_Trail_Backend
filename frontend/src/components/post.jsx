@@ -31,7 +31,7 @@ const Post = (props) => {
       <Row className="topRow">
         <Col sm={8}>
           <Row className="textBody">
-            <TextBody />
+            <TextBody props={props}/>
           </Row>
           <Row className="bottomRow">
             <Col sm={2} className="LD">

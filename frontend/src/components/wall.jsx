@@ -2,6 +2,7 @@
 import Post from './post';
 import NewPost from './newPost';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 // import { useState } from "react";
@@ -13,10 +14,10 @@ const Wall = () =>{
     const userObject = jwtDecode(jwt);
 
 
-    const authUser = ()=>{
+    const authUser = async ()=>{
         console.log("auth trigger test")
-        const user = axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-        console.log(user);
+        const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+        console.log(user.data);
         return user;
     }
 
@@ -39,12 +40,16 @@ const Wall = () =>{
 
     return(
         <Container fluid>
-            profile link here              
+            <Row className="profileButton">   
+                <Button className="btn btn-success btn-md">
+                        Profile
+                </Button> 
+            </Row>               
                 <Row className="postStyle">
-                    <Post props={user}/>
+                    <Post />
                 </Row>
                 <Row className="newPostStyle">
-                    <NewPost props={user} />
+                    <NewPost />
                 </Row>
         </Container>
     )

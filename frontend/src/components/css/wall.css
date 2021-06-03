@@ -33,3 +33,7 @@
 .profileContent{
     background-color: white;
 }
+.profileButton{
+    float: right;
+    padding-right: 10px;
+}

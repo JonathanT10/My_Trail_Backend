@@ -64,7 +64,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 //get a user from ID
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
          const user = await User.findById(req.params.id);
 

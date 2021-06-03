@@ -5,15 +5,23 @@ import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
-// import axios from 'axios';
-// import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 
 const Profile = (props)=>{
-    // const [user, setUser] = useState();
-    // const jwt = localStorage.getItem('token');
-    // setUser(jwtDecode(jwt));
-    console.log(props._id)
+    const jwt = localStorage.getItem('token');
+    const userObject = jwtDecode(jwt);
+
+
+    const authUser = async ()=>{
+        console.log("auth trigger test")
+        const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+        console.log(user.data);
+        return user;
+    }
+
+    const user = authUser();
 
     // const handleChange = (event) => {
     //     setText(event.target.value);
@@ -35,10 +43,10 @@ const Profile = (props)=>{
                 </Col>  
                 <Col>
                     <Row className="profileText">
-                        <AboutMe  props={props}/>
+                        <AboutMe />
                     </Row>
                     <Row className="profileText">
-                        <FriendsList  props={props}/>
+                        <FriendsList />
                     </Row>                
                 </Col>
             </Row>
