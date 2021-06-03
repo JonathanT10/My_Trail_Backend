@@ -64,12 +64,12 @@ router.post('/', auth, async (req, res) => {
 });
 
 //get a user from ID
-router.get('/:_id', auth, async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try{
-         const user = await User.findById(req.params._id);
+         const user = await User.findById(req.params.id);
 
          if (!user)
-         return res.status(400).send(`The user with ID: ${_id} does not exist`);
+         return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
          return res.send(user);
     }catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -92,7 +92,7 @@ router.get('/', async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
-            req.params._id,
+            req.params.id,
             {
                 friendsList: [req.body.friendsList],
             },
@@ -100,48 +100,70 @@ router.put('/:id', auth, async (req, res) => {
         );
 
         if (!user)
-        return res.status(400).send(`The user with ID: ${ex} does not exist`);
+        return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
 
         await user.save();
 
         return res.send(user);
     } catch (ex) {
-        return res.status(500).send(`Inter Server Error: ${ex}`);
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
+
+//place to store friend requests
+router.put('/:id/pendingfriends', auth, async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                pendingFriends: [req.body.pendingFriends],
+            },
+            { new: true }
+        );
+
+        if (!user)
+        return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
+
+        await user.save();
+
+        return res.send(user);
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
 
 // update about me section
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id/aboutme', auth, async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
-            req.params._id,
+            req.params.id,
             {
                 aboutMe: req.body.aboutMe,
             },
         );
 
         if (!user)
-        return res.status(400).send(`The user with ID: ${ex} does not exist`);
+        return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
 
         await user.save();
 
         return res.send(user);
     } catch (ex) {
-        return res.status(500).send(`Inter Server Error: ${ex}`);
+        return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
 
 // upload a profile image
-router.put("/uploadmulter/:_id",upload.single('img'), async (req, res) => {
+router.put("/uploadmulter/:id",upload.single('img'), async (req, res) => {
    try{
     const user = await User.findByIdAndUpdate(
-        req.params._id,
+        req.params.id,
         {
         img: req.file.path
     }
     );
     if (!user)
-    return res.status(400).send(`The user with ID: ${_id} does not exist`);
+    return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
 
     await user.save();
     return res.send(user);

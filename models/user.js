@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, minlength: 5, maxlength: 255 },
     password: { type: String, required: true, minlength: 5, maxlength: 1024 },
     friendsList: { type: [String]},
+    pendingFriends: {type: [String]},
     img: { data: Buffer, contentType: String },
     aboutMe: { type: String, minlength: 5, maxlength: 500 }
 });
