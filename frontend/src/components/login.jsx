@@ -8,7 +8,7 @@ import './css/wall.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const Login= () =>{
+const Login = () =>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -26,9 +26,9 @@ const Login= () =>{
             .then(response => {
                 const  token  = response.data;
                 localStorage.setItem('token', token);
-                window.location = '/wall';
+                window.location="/wall";
             }).catch(error => {
-                //invalid alert here
+                alert("Username or Password invalid, please try again")
                 console.log('Error', error);
             });
     }

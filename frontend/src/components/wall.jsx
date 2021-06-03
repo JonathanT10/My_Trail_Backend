@@ -6,6 +6,9 @@ import NewPost from './newPost';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
+// import { useState } from "react";
+
+
 
 const Wall = (props)=>{
     const [currUser, setCurrUser] = useState();
@@ -18,7 +21,13 @@ const Wall = (props)=>{
         console.log(response);
         setUserObject(response);
       }
+    
        
+
+
+
+    const user = authUser();
+ 
     // const [text, setText] = useState('');
 
     // const handleChange = (event) => {
@@ -33,16 +42,25 @@ const Wall = (props)=>{
     // }
 
     // post needs to map all posts matching logged in user, and everyone on friends list
+
     console.log(userObject);
     
+
+    
+
+
     return(
         <Container fluid>
             profile link here   {currUser}           
                 <Row className="postStyle">
+
                     <Post props={authUser()}/>
+
+                    <Post props={user}/>
+
                 </Row>
                 <Row className="newPostStyle">
-                    <NewPost props={props} />
+                    <NewPost props={user} />
                 </Row>
         </Container>
     )
