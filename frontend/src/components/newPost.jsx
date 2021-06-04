@@ -34,10 +34,10 @@ const NewPost = (props)=>{
         setRating(event.target.value);
     }
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         event.preventDefault();
         console.log(post);
-        axios
+       await axios
             .post(`http://localhost:5000/api/posts/`, {text: post, likes: 0, dislikes: 0, location: location, mood: mood, rating: rating,  userId: user._id}, {headers: {Authorization : 'Bearer' + jwt}})
             .then(response => {
                 console.log(response);

@@ -14,6 +14,7 @@ import Col from "react-bootstrap/Col";
 import '../components/css/post.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+// import { post } from "../../../routes/user";
 
 
 const Post = (props) => {
@@ -36,7 +37,7 @@ const Post = (props) => {
 //   const posts = async ()=>{
 //       console.log("auth trigger test")
 //      const currfriend = await user.friendsList.map(currfriend => {
-//       const posting =  axios.get(`http://localhost:5000/api/post/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
+//       const posting =  axios.get(`http://localhost:5000/api/posts/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
 //       setPosting(posting)
 //       console.log(posting.data);
 //       return posting;
@@ -46,6 +47,20 @@ const Post = (props) => {
 //     posts();
 // },[user]);
 
+const clickLikes = async (posts) => {
+  posts.likes = posts.likes +1;
+console.log("likes", posts.likes);
+const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
+{likes: posts.likes, dislikes: posts.dislikes});
+}
+
+const clickDislikes = async (posts) => {
+  posts.dislikes = posts.dislikes +1;
+console.log("likes", posts.dislikes);
+const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
+{likes: posts.likes, dislikes: posts.dislikes});
+}
+  
   
   const logOut = () => {
       localStorage.removeItem('token');
