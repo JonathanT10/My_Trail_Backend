@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 // import Img from "./subComponents/img";
 import LD from "./subComponents/LD";
 import Location from "./subComponents/location";
@@ -18,29 +18,33 @@ import axios from 'axios';
 
 const Post = (props) => {
 
+  const [posting, setPosting] = useState();
   const jwt = localStorage.getItem('token');
   const userObject = jwtDecode(jwt);
 
-  const authUser = async ()=>{
-    console.log("auth trigger test")
-    const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-    console.log(user.data);
-    return user;
-}
+//   const authUser = async ()=>{
+//     console.log("auth trigger test")
+//     const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+//     console.log(user.data);
+//     return user;
+// }
 
-const user = authUser();
+// const user = authUser();
 
 
 
-  const posts = async ()=>{
-      console.log("auth trigger test")
-     const currfriend = user.friendsList.map(currfriend => {
-      const posting = axios.get(`http://localhost:5000/api/post/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
-      console.log(posting.data);
-      return posting;
-  });}
+//   const posts = async ()=>{
+//       console.log("auth trigger test")
+//      const currfriend = await user.friendsList.map(currfriend => {
+//       const posting =  axios.get(`http://localhost:5000/api/post/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
+//       setPosting(posting)
+//       console.log(posting.data);
+//       return posting;
+//   })}
 
-  const posting = posts();
+//   useEffect(() => {
+//     posts();
+// },[user]);
 
   
   const logOut = () => {
