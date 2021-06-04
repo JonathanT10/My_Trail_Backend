@@ -20,10 +20,12 @@ const Profile = (props)=>{
         console.log(user);
     }
 
-    useEffect(){
-        
-    }
-    authUser(userObject, jwt);
+    useEffect(() => {
+        const jwt = localStorage.getItem('token');
+        const userObject = jwtDecode(jwt);
+        authUser(userObject, jwt);
+    },[]);
+    
 
     return(
         <div>
@@ -31,14 +33,14 @@ const Profile = (props)=>{
             <Container className="profileContainer">
                 <Row>  
                     <Col>
-                        {/* <img src={"../../../" + user.img} alt="" /> */}
+                        <img src={"../../../" + user.img} alt="" />
                     </Col>  
                     <Col>
                         <Row className="profileText">
                             <AboutMe aboutMe={user.aboutMe} />
                         </Row>
                         <Row className="profileText">
-                            <FriendsList props={user.friendsList}/>
+                            <FriendsList props={user} />
                         </Row>                
                     </Col>
                 </Row>

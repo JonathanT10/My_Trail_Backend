@@ -12,8 +12,42 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 // import Button from "react-bootstrap/Button";
 import '../components/css/post.css';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+
 
 const Post = (props) => {
+
+  const jwt = localStorage.getItem('token');
+  const userObject = jwtDecode(jwt);
+
+  const authUser = async ()=>{
+    console.log("auth trigger test")
+    const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
+    console.log(user.data);
+    return user;
+}
+
+const user = authUser();
+
+
+
+  const posts = async ()=>{
+      console.log("auth trigger test")
+     const currfriend = user.friendsList.map(currfriend => {
+      const posting = axios.get(`http://localhost:5000/api/post/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
+      console.log(posting.data);
+      return posting;
+  });}
+
+  const posting = posts();
+
+  
+  const logOut = () => {
+      localStorage.removeItem('token');
+      window.location = '/';
+  }
+
   // const [text, setText] = useState("");
 
   // const handleChange = (event) => {
@@ -31,7 +65,7 @@ const Post = (props) => {
       <Row className="topRow">
         <Col sm={8}>
           <Row className="textBody">
-            <TextBody props={props}/>
+            <TextBody props = {posting}/>
           </Row>
           <Row className="bottomRow">
             <Col sm={2} className="LD">
