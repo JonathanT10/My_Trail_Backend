@@ -20,10 +20,10 @@ const Profile = (props)=>{
         console.log(user);
     }
 
-    useEffect(){
-        
-    }
-    authUser(userObject, jwt);
+    useEffect(()=>{
+        authUser(userObject, jwt);
+
+    });
 
     return(
         <div>
