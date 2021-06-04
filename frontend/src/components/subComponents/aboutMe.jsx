@@ -1,6 +1,7 @@
 // import {useState} from 'react';
 
 const AboutMe = (props)=>{
+    console.log(props);
     // const [text, setText] = useState('');
 
     // const handleChange = (event) => {
@@ -15,9 +16,9 @@ const AboutMe = (props)=>{
     // }
 
     return(
-        <>
-            aboutme text
-        </>
+        <h1>
+            {props.aboutMe}
+        </h1>    
     )
 }
 

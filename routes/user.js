@@ -33,7 +33,7 @@ const upload = multer({
 
 
 //post a new user
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     try{
         const { error } = validate(req.body)
         if (error) return res.status(400).send(error.details[0].message);
@@ -46,8 +46,6 @@ router.post('/', auth, async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, salt),
-            friendsList: req.body.friendsList,
-            aboutMe: req.body.aboutMe
         });
 
         await user.save();

@@ -7,6 +7,7 @@ import './css/wall.css';
 import { Form } from 'react-bootstrap';
 import {useState} from 'react';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 
 const Register = (props)=>{
@@ -30,11 +31,12 @@ const Register = (props)=>{
 
     const handleClick = (event) => {
         event.preventDefault();
+        console.log(name, email, password);
         axios
-            .post(`http://localhost:5000/api/user/`, {name: name, email: email, password: password, aboutMe: aboutMe})
+            .post(`http://localhost:5000/api/user/`, {name: name, email: email, password: password})
             .then(response => {
                 console.log(response);
-                window.location = '/login';
+                window.location = '/';
             });
     }
 
