@@ -29,6 +29,10 @@ const Wall = (props)=>{
         localStorage.removeItem('token');
         window.location = '/';
     }
+
+    const goProfile = () => {
+        window.location = '/profile';
+    }
  
     // const [text, setText] = useState('');
 
@@ -48,7 +52,7 @@ const Wall = (props)=>{
     return(
         <Container fluid>
             <Row className="profileButton">   
-                <Button className="btn btn-success btn-md">
+                <Button className="btn btn-success btn-md" onClick={()=> goProfile()}>
                         Profile
                 </Button>         
                 <Button className="btn btn-success btn-md" onClick={()=> logOut()}>

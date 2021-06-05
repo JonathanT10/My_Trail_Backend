@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 // import Img from "./subComponents/img";
 import LD from "./subComponents/LD";
 import Location from "./subComponents/location";
@@ -14,10 +14,12 @@ import Col from "react-bootstrap/Col";
 import '../components/css/post.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+// import { post } from "../../../routes/user";
 
 
 const Post = (props) => {
 
+  const [posting, setPosting] = useState();
   const jwt = localStorage.getItem('token');
   const userObject = jwtDecode(jwt);
 
@@ -30,8 +32,6 @@ const Post = (props) => {
 
 const user = authUser();
 
-
-
   const posts = async ()=>{
       console.log("auth trigger test")
       user.friendsList.map(item => {
@@ -40,8 +40,20 @@ const user = authUser();
       return posting;
   });}
 
-  const posting = posts();
+const clickLikes = async (posts) => {
+  posts.likes = posts.likes +1;
+console.log("likes", posts.likes);
+const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
+{likes: posts.likes, dislikes: posts.dislikes});
+}
 
+const clickDislikes = async (posts) => {
+  posts.dislikes = posts.dislikes +1;
+console.log("likes", posts.dislikes);
+const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
+{likes: posts.likes, dislikes: posts.dislikes});
+}
+  
   
   const logOut = () => {
       localStorage.removeItem('token');

@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
@@ -26,30 +27,51 @@ const Profile = (props)=>{
         authUser(userObject, jwt);
     },[]);
     
+    
+    const logOut = () => {
+        localStorage.removeItem('token');
+        window.location = '/';
+    };
+
+    const goWall = () => {
+        window.location = '/wall';
+    };
 
     return(
-        <div>
+        <>
         {user ?
-            <Container className="profileContainer">
-                <Row>  
+            <div>
+            <Container fluid>
+                <Row className="profileButton">
+                        <Button className="btn btn-success btn-md" onClick={()=> goWall()}>
+                                Wall
+                        </Button>         
+                        <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
+                                Log Out
+                        </Button> 
+                </Row>
+                        <br/>
+                        <br/>  
+                <Row className="profileContent"> 
                     <Col>
                         <img src={"../../../" + user.img} alt="" />
                     </Col>  
-                    <Col>
+                    <Col>            
                         <Row className="profileText">
-                            <AboutMe aboutMe={user.aboutMe} />
+                        <AboutMe aboutMe={user.aboutMe} />
                         </Row>
                         <Row className="profileText">
                             <FriendsList props={user} />
-                        </Row>                
-                    </Col>
-                </Row>
+                        </Row>                 
+                    </Col> 
+                </Row> 
             </Container>
-        :
-            <div>
             </div>
+        :
+            <>
+            </>
         }
-        </div>
+        </>
     )
 }
 
