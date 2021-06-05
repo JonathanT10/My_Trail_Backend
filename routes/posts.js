@@ -83,7 +83,6 @@ router.post('/', auth, async (req, res) => {
 
 router.put('/:id', auth, async (req, res) => {
     try {
-
         const posts = await Posts.findByIdAndUpdate(
             req.params.id,
             {

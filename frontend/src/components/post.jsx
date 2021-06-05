@@ -24,35 +24,18 @@ const Post = (props) => {
   const userObject = jwtDecode(jwt);
 
   const authUser = async ()=>{
-    console.log("auth trigger test")
     const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-    console.log(user.data);
     return user;
 }
 
 const user = authUser();
 
   const posts = async ()=>{
-      console.log("auth trigger test")
       user.friendsList.map(item => {
       const posting = axios.get(`http://localhost:5000/api/post/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
-      console.log(posting.data);
+      console.log('post posting data:' , posting.data);
       return posting;
   });}
-
-const clickLikes = async (posts) => {
-  posts.likes = posts.likes +1;
-console.log("likes", posts.likes);
-const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
-{likes: posts.likes, dislikes: posts.dislikes});
-}
-
-const clickDislikes = async (posts) => {
-  posts.dislikes = posts.dislikes +1;
-console.log("likes", posts.dislikes);
-const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`,{headers: {Authorization : 'Bearer' + jwt}},
-{likes: posts.likes, dislikes: posts.dislikes});
-}
   
   
   const logOut = () => {
@@ -81,7 +64,7 @@ const response = await axios .put(`http://localhost:5000/api/posts/${posts._id}`
           </Row>
           <Row className="bottomRow">
             <Col sm={2} className="LD">
-              <LD />
+              <LD props={user.LD}/>
             </Col>
             <Col sm={10} className="secondColumn">
               <Row className="miniRow">

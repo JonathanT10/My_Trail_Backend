@@ -2,9 +2,10 @@
 
 const FriendsList = (props)=>{
     const user = props.props;
-    console.log(user);
-    console.log(user.friendsList);
-    console.log(user.pendingFriends);
+    // console.log(user);
+    // console.log(user.friendsList);
+    // console.log(user.pendingFriends);
+    
     // const [text, setText] = useState('');
 
     // const handleChange = (event) => {

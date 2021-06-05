@@ -18,7 +18,7 @@ const Profile = (props)=>{
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
         setUser(user.data);
-        console.log(user);
+        console.log('profile page user', user);
     }
 
     useEffect(() => {
@@ -41,31 +41,33 @@ const Profile = (props)=>{
         <>
         {user ?
             <div>
-            <Container fluid>
-                <Row className="profileButton">
-                        <Button className="btn btn-success btn-md" onClick={()=> goWall()}>
-                                Wall
-                        </Button>         
-                        <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
-                                Log Out
-                        </Button> 
-                </Row>
-                        <br/>
-                        <br/>  
-                <Row className="profileContent"> 
-                    <Col>
-                        <img src={"../../../" + user.img} alt="" />
-                    </Col>  
-                    <Col>            
-                        <Row className="profileText">
-                        <AboutMe aboutMe={user.aboutMe} />
-                        </Row>
-                        <Row className="profileText">
-                            <FriendsList props={user} />
-                        </Row>                 
-                    </Col> 
-                </Row> 
-            </Container>
+                <Container fluid>
+                    <Row className="profileButton">
+                            <Button className="btn btn-success btn-md" onClick={()=> goWall()}>
+                                    Wall
+                            </Button>         
+                            <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
+                                    Log Out
+                            </Button> 
+                    </Row>
+                            <br/>
+                            <br/>  
+                    <Row className="profileContent"> 
+                        <Col>
+                        <div>
+                            <img src={user.img} alt="" />
+                        </div>
+                        </Col>  
+                        <Col>            
+                            <Row className="profileText">
+                            <AboutMe aboutMe={user.aboutMe} />
+                            </Row>
+                            <Row className="profileText">
+                                <FriendsList props={user} />
+                            </Row>                 
+                        </Col> 
+                    </Row> 
+                </Container>
             </div>
         :
             <>

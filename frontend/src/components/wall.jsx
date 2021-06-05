@@ -16,9 +16,9 @@ const Wall = (props)=>{
     const userObject = jwtDecode(jwt);
 
     const authUser = async ()=>{
-        console.log("auth trigger test")
+        console.log("auth trigger test wall")
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-        console.log(user.data);
+        console.log('wall user data:', user.data);
         return user;
     }
 
@@ -50,22 +50,31 @@ const Wall = (props)=>{
     // post needs to map all posts matching logged in user, and everyone on friends list
 
     return(
-        <Container fluid>
-            <Row className="profileButton">   
-                <Button className="btn btn-success btn-md" onClick={()=> goProfile()}>
-                        Profile
-                </Button>         
-                <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
-                        Log Out
-                </Button>  
-            </Row>               
-                <Row className="postStyle">
-                    <Post />
-                </Row>
-                <Row className="newPostStyle">
-                    <NewPost />
-                </Row>
-        </Container>
+        <>
+        {user ?
+            <div>
+                <Container fluid>
+                    <Row className="profileButton">   
+                        <Button className="btn btn-success btn-md" onClick={()=> goProfile()}>
+                                Profile
+                        </Button>         
+                        <Button className="btn btn-success btn-md" onClick={()=> logOut()}>
+                                Log Out
+                        </Button>  
+                    </Row>               
+                        <Row className="postStyle">
+                            <Post  user={user}/>
+                        </Row>
+                        <Row className="newPostStyle">
+                            <NewPost  user={user}/>
+                        </Row>
+                </Container>
+            </div>
+        :
+            <>
+            </>
+        }
+        </>
     )
 }
 
