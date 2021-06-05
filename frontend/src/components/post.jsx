@@ -34,8 +34,8 @@ const user = authUser();
 
   const posts = async ()=>{
       console.log("auth trigger test")
-     const currfriend = user.friendsList.map(currfriend => {
-      const posting = axios.get(`http://localhost:5000/api/post/${currfriend}`, {headers: {Authorization : 'Bearer' + jwt}})
+      user.friendsList.map(item => {
+      const posting = axios.get(`http://localhost:5000/api/post/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
       console.log(posting.data);
       return posting;
   });}
