@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -11,23 +11,28 @@ import jwtDecode from 'jwt-decode';
 
 
 const Profile = (props)=>{
+    
+    const imgRef = useRef();
     const jwt = localStorage.getItem('token');
     const userObject = jwtDecode(jwt);
     const [user, setUser] = useState();
 	const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
 
+
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
         setUser(user.data);
-        console.log('profile page user', user);
+        imgRef.current = user.data.img;
+        console.log(imgRef.current);
+        console.log('profile page user', {user});
     }
 
     useEffect(() => {
         const jwt = localStorage.getItem('token');
         const userObject = jwtDecode(jwt);
         authUser(userObject, jwt);
-    },[]);
+    },[jwt]);
     
     
     const logOut = () => {
@@ -71,7 +76,7 @@ const Profile = (props)=>{
                     <Row className="profileContent"> 
                         <Col>
                         <div>
-                            <img src={`../../public/uploads/${user.img}`} alt="" />
+                            <img src={require=("../../public/uploads/" + imgRef.current)} alt="" />
                             <br/>
                             <div>
                                 <input type="file" name="img" onChange={imgChange} />

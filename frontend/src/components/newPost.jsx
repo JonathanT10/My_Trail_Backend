@@ -72,12 +72,12 @@ const NewPost = (props)=>{
                         <Form.Label className="loginText">Rating</Form.Label>
                             <Form.Control type="rating" placeholder="Rating"onChange={ratingChange}/>
                             <Form.Text className="loginText">
-                            </Form.Text>
+                            </Form.Text>                            
+                        <Button className="btn btn-success btn-md float-right" variant="primary" type="submit">
+                            Submit New Post
+                        </Button>
                         </Form.Group>
                         <Row>
-                <Button className="btn btn-success btn-md float-right" variant="primary" type="submit">
-                    Submit New Post
-                </Button>
             </Row>
                 </Form>
             </Row>
