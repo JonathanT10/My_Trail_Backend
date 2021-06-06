@@ -3,14 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-
-
+import FormData from 'form-data';
 
 const Profile = (props)=>{
     
@@ -22,7 +20,6 @@ const Profile = (props)=>{
 
     const uploadedImage = useRef();
 
-
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
         setUser(user.data);
@@ -33,9 +30,8 @@ const Profile = (props)=>{
         const jwt = localStorage.getItem('token');
         const userObject = jwtDecode(jwt);
         authUser(userObject, jwt);
-    },[jwt]);
-    
-    
+    },[]);
+        
     const logOut = () => {
         localStorage.removeItem('token');
         window.location = '/';
@@ -53,17 +49,31 @@ const Profile = (props)=>{
 	const handleSubmission = (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append("userId", user._id);
         formData.append("img", selectedFile[0]);
-        axios
-            .put(`http://localhost:5000/api/user/uploadmulter/${user._id}`,
-                {headers: {Authorization : 'Bearer' + jwt}},
-                {body: formData})
-            .then(response => {
-                console.log(response);
-                // window.location = '/profile';
-            });
+
+        console.log(selectedFile[0]);
+        
+        var config = {
+            method: 'put',
+            url: `http://localhost:5000/api/user/uploadmulter/${user._id}`,
+            body : {img: formData},
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+        };
+
+        axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+        console.log(error);
+        // window.location = '/profile';
+        });
 	};
+
+    
+
 
     return(
         <>
@@ -86,8 +96,8 @@ const Profile = (props)=>{
                             <img ref={uploadedImage} alt="" />
                             <br/>
                             <div>
-                                <Form onSubmit={() => handleSubmission()}>
-                                    <input type="file" name="img" onChange={imgChange} />
+                                    <form onSubmit={handleSubmission()}>
+                                    <input type="file" name="img" onChange={e => imgChange(e.target.value)} />
                                     {isSelected ? (
                                         <div className="loginText">
                                             <p>Filename: {selectedFile.name}</p>
@@ -99,9 +109,8 @@ const Profile = (props)=>{
                                     )}
                                     <div className="loginText">
                                     <Button className="btn btn-success btn-md" type="submit">Submit</Button>
-                                    </div>                                    
-                                </Form>
-                                
+                                    </div>  
+                                    </form>                                   
                             </div>
                         </div>
                         </Col>  

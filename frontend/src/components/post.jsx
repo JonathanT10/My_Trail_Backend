@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import Img from "./subComponents/img";
 import LD from "./subComponents/LD";
 import Location from "./subComponents/location";
@@ -28,7 +28,9 @@ const Post = (props) => {
     return user;
 }
 
-const user = authUser();
+  const user = authUser();
+
+  const uploadedImage = useRef(props.img);
 
   const posts = async ()=>{
       user.friendsList.map(item => {
@@ -68,8 +70,8 @@ const user = authUser();
             </Col>
           </Row>
         </Col>
-        <Col sm={4} className="profileColumn">
-         Profile Image Here
+        <Col sm={4} className="profileColumn">         
+          <img ref={uploadedImage} alt="" />Profile Image Here
         </Col>
       </Row>
     </Container>

@@ -1,4 +1,5 @@
  const { User } = require('../models/user');
+ const { Image } = require('../models/image');
  const { validate } = require('../models/user')
  const bcrypt = require('bcrypt');
  const express = require('express');
@@ -154,14 +155,17 @@ router.put('/:id/aboutme', auth, async (req, res) => {
 // upload a profile image
 router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
    try{
-    const user = await User.findByIdAndUpdate(
-        req.params._id,
-        {
-        img: req.file.path
-    }
-    );
+    const user = await User.findById(req.params.id);
     if (!user)
     return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
+    
+    const newImage = new Image({
+        img: req.file.path
+    })
+
+    console.log(newImage)
+
+    user.img = newImage;
 
     await user.save();
     return res.send(user);
