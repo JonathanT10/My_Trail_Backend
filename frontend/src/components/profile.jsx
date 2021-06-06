@@ -96,8 +96,8 @@ const Profile = (props)=>{
                             <img ref={uploadedImage} alt="" />
                             <br/>
                             <div>
-                                    <form onSubmit={handleSubmission()}>
-                                    <input type="file" name="img" onChange={e => imgChange(e.target.value)} />
+                                    <form onSubmit={handleSubmission}>
+                                    <input type="file" name="img" onChange={imgChange} />
                                     {isSelected ? (
                                         <div className="loginText">
                                             <p>Filename: {selectedFile.name}</p>
