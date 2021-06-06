@@ -8,7 +8,7 @@
 
  const storage = multer.diskStorage({
      destination: function (req, file, cb) {
-         cb(null, '../frontend/public/uploads/');
+         cb(null, './uploads');
      },
      filename: function (req, file, cb) {
          cb(null, Date.now() + file.originalname);
@@ -152,10 +152,10 @@ router.put('/:id/aboutme', auth, async (req, res) => {
 });
 
 // upload a profile image
-router.put("/uploadmulter/:id",upload.single('img'), async (req, res) => {
+router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
    try{
     const user = await User.findByIdAndUpdate(
-        req.params.id,
+        req.params._id,
         {
         img: req.file.path
     }

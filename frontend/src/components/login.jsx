@@ -33,15 +33,6 @@ const Login = () =>{
             });
     }
 
-    // useEffect(() => {
-    //     axios
-    //       .get(`http://localhost:5000/api/ytclone/${videoId}`)
-    //       .then((response) => setComments(response.data));
-    //       console.log(videoId)
-    //   }, [videoId]);
-
-    // post needs to map all posts matching logged in user, and everyone on friends list
-
     return(
         <Container fluid>
             <Table>                    

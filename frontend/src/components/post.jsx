@@ -43,18 +43,6 @@ const user = authUser();
       window.location = '/';
   }
 
-  // const [text, setText] = useState("");
-
-  // const handleChange = (event) => {
-  //   setText(event.target.value);
-  // };
-
-  // const handleClick = () => {
-  //   const newComment = {};
-  //   props.addNewComment(newComment);
-  //   setText("");
-  // };
-
   return (
     <Container fluid className="postStyle">
       <Row className="topRow">

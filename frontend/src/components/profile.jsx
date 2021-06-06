@@ -1,8 +1,9 @@
-import {useState, useEffect, useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
@@ -10,21 +11,21 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 
+
 const Profile = (props)=>{
     
-    const imgRef = useRef();
     const jwt = localStorage.getItem('token');
     const userObject = jwtDecode(jwt);
     const [user, setUser] = useState();
 	const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
 
+    const uploadedImage = useRef();
+
 
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
         setUser(user.data);
-        imgRef.current = user.data.img;
-        console.log(imgRef.current);
         console.log('profile page user', {user});
     }
 
@@ -49,9 +50,15 @@ const Profile = (props)=>{
 		setIsSelected(true);
 	};
 
-	const handleSubmission = async () => {
+	const handleSubmission = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("userId", user._id);
+        formData.append("img", selectedFile[0]);
         axios
-            .put(`http://localhost:5000/api/user/uploadmulter/${user._id}`, {headers: {Authorization : 'Bearer' + jwt}}, {file: selectedFile})
+            .put(`http://localhost:5000/api/user/uploadmulter/${user._id}`,
+                {headers: {Authorization : 'Bearer' + jwt}},
+                {body: formData})
             .then(response => {
                 console.log(response);
                 // window.location = '/profile';
@@ -76,26 +83,25 @@ const Profile = (props)=>{
                     <Row className="profileContent"> 
                         <Col>
                         <div>
-                            <img src={require=("../../public/uploads/" + imgRef.current)} alt="" />
+                            <img ref={uploadedImage} alt="" />
                             <br/>
                             <div>
-                                <input type="file" name="img" onChange={imgChange} />
-                                {isSelected ? (
-                                    <div className="loginText">
-                                        <p>Filename: {selectedFile.name}</p>
-                                        <p>Filetype: {selectedFile.type}</p>
-                                        <p>Size in bytes: {selectedFile.size}</p>
-                                        <p>
-                                            lastModifiedDate:{' '}
-                                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                ) : (
+                                <Form onSubmit={() => handleSubmission()}>
+                                    <input type="file" name="img" onChange={imgChange} />
+                                    {isSelected ? (
+                                        <div className="loginText">
+                                            <p>Filename: {selectedFile.name}</p>
+                                            <p>Filetype: {selectedFile.type}</p>
+                                            <p>Size in bytes: {selectedFile.size}</p>
+                                        </div>
+                                    ) : (
                                     <p className="loginText">Select a file to show details</p>
-                                )}
-                                <div className="loginText">
-                                <Button className="btn btn-success btn-md" onClick={() => handleSubmission()}>Submit</Button>
-                                </div>
+                                    )}
+                                    <div className="loginText">
+                                    <Button className="btn btn-success btn-md" type="submit">Submit</Button>
+                                    </div>                                    
+                                </Form>
+                                
                             </div>
                         </div>
                         </Col>  

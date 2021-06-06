@@ -7,9 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
-// import { useState } from "react";
-
-
 
 const Wall = (props)=>{
     const jwt = localStorage.getItem('token');
@@ -33,19 +30,6 @@ const Wall = (props)=>{
     const goProfile = () => {
         window.location = '/profile';
     }
- 
-    // const [text, setText] = useState('');
-
-    // const handleChange = (event) => {
-    //     setText(event.target.value);
-    //   };
-
-    // const handleClick =()=>{
-    //     const newComment={
-    //     }
-    //     props.addNewComment(newComment);
-    //     setText('');
-    // }
 
     // post needs to map all posts matching logged in user, and everyone on friends list
 

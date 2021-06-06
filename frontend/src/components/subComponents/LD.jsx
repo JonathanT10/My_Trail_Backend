@@ -1,4 +1,3 @@
-// import {useState} from 'react';
 import axios from 'axios';
 
 const jwt = localStorage.getItem('token');
@@ -18,18 +17,6 @@ const clickLikes = async (posts) => {
   }
 
 const LD = (props)=>{
-    // const [text, setText] = useState('');
-
-    // const handleChange = (event) => {
-    //     setText(event.target.value);
-    //   };
-
-    // const handleClick =()=>{
-    //     const newComment={
-    //     }
-    //     props.addNewComment(newComment);
-    //     setText('');
-    // }
 
     console.log(props)
 
