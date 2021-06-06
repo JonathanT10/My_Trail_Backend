@@ -15,7 +15,7 @@ const Profile = (props)=>{
     const jwt = localStorage.getItem('token');
     const userObject = jwtDecode(jwt);
     const [user, setUser] = useState();
-	const [selectedFile, setSelectedFile] = useState();
+	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
 
     const uploadedImage = useRef();
@@ -42,21 +42,24 @@ const Profile = (props)=>{
     };
 
     const imgChange = (event) => {
-		setSelectedFile(event.target.files[0]);
+		setSelectedFile(event.target.files);
 		setIsSelected(true);
 	};
 
 	const handleSubmission = (event) => {
         event.preventDefault();
+        
+        console.log('imgchange',selectedFile[0])
         const formData = new FormData();
         formData.append("img", selectedFile[0]);
 
-        console.log(selectedFile[0]);
+        console.log('handlesubmit', formData);
+        console.log(user.id);
         
         var config = {
             method: 'put',
             url: `http://localhost:5000/api/user/uploadmulter/${user._id}`,
-            body : {img: formData},
+            body : formData[0],
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -96,13 +99,13 @@ const Profile = (props)=>{
                             <img ref={uploadedImage} alt="" />
                             <br/>
                             <div>
-                                    <form onSubmit={handleSubmission}>
+                                    <form onSubmit={handleSubmission} encType='multipart/form-data'>
                                     <input type="file" name="img" onChange={imgChange} />
-                                    {isSelected ? (
+                                    {isSelected ? ( 
                                         <div className="loginText">
-                                            <p>Filename: {selectedFile.name}</p>
-                                            <p>Filetype: {selectedFile.type}</p>
-                                            <p>Size in bytes: {selectedFile.size}</p>
+                                            <p>Filename: {selectedFile[0].name}</p>
+                                            <p>Filetype: {selectedFile[0].type}</p>
+                                            <p>Size in bytes: {selectedFile[0].size}</p>
                                         </div>
                                     ) : (
                                     <p className="loginText">Select a file to show details</p>

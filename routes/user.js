@@ -155,17 +155,16 @@ router.put('/:id/aboutme', auth, async (req, res) => {
 // upload a profile image
 router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
    try{
-    const user = await User.findById(req.params.id);
+    const user = await User.findByIdAndUpdate(req.params.id, {img: req.file.path});
     if (!user)
     return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
     
-    const newImage = new Image({
-        img: req.file.path
-    })
+    // const newImage = new Image({
+    //     img: req.file.path
+    // })
 
-    console.log(newImage)
-
-    user.img = newImage;
+    // user.img = newImage;
+    // console.log(user.img)
 
     await user.save();
     return res.send(user);
