@@ -159,6 +159,8 @@ router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
     if (!user)
     return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
 
+    console.log(user);
+
     await user.save();
     return res.send(user);
 } catch (ex) {

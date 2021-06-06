@@ -62,12 +62,13 @@ const Profile = (props)=>{
         const formData = new FormData();
         formData.append("img", selectedFile[0]);
 
-        console.log('handlesubmit', formData);
+        console.log("logged in user", userId.current._id);
+        console.log("img url", uploadedImage.current);
         
         var config = {
             method: 'put',
             url: `http://localhost:5000/api/user/uploadmulter/${userId.current._id}`,
-            body : formData,
+            data : formData,
             headers: {
               "Content-Type": "multipart/form-data",
             },
