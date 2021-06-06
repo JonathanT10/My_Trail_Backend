@@ -9,7 +9,7 @@
 
  const storage = multer.diskStorage({
      destination: function (req, file, cb) {
-         cb(null, './uploads');
+         cb(null, './frontend/public/uploads/');
      },
      filename: function (req, file, cb) {
          cb(null, Date.now() + file.originalname);
@@ -158,13 +158,6 @@ router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
     const user = await User.findByIdAndUpdate(req.params.id, {img: req.file.path});
     if (!user)
     return res.status(400).send(`The user with ID: ${req.params.id} does not exist`);
-    
-    // const newImage = new Image({
-    //     img: req.file.path
-    // })
-
-    // user.img = newImage;
-    // console.log(user.img)
 
     await user.save();
     return res.send(user);

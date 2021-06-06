@@ -18,19 +18,21 @@ const Profile = (props)=>{
 	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
 
-    const uploadedImage = useRef();
+    const uploadedImage = useRef("");
+    const userId = useRef("");
 
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
-        setUser(user.data);
-        console.log('profile page user', {user});
+        setUser(user.data);  
+        uploadedImage.current = (user.data.img);   
     }
 
     useEffect(() => {
         const jwt = localStorage.getItem('token');
         const userObject = jwtDecode(jwt);
         authUser(userObject, jwt);
-    },[]);
+        userId.current = userObject;
+    },[isSelected]);
         
     const logOut = () => {
         localStorage.removeItem('token');
@@ -42,6 +44,13 @@ const Profile = (props)=>{
     };
 
     const imgChange = (event) => {
+        console.log("previous image", user.img);
+        
+        uploadedImage.current = (user.img);
+
+        console.log("logged in user", userId.current._id);
+        console.log("img url", uploadedImage.current);
+
 		setSelectedFile(event.target.files);
 		setIsSelected(true);
 	};
@@ -54,12 +63,11 @@ const Profile = (props)=>{
         formData.append("img", selectedFile[0]);
 
         console.log('handlesubmit', formData);
-        console.log(user.id);
         
         var config = {
             method: 'put',
-            url: `http://localhost:5000/api/user/uploadmulter/${user._id}`,
-            body : formData[0],
+            url: `http://localhost:5000/api/user/uploadmulter/${userId.current._id}`,
+            body : formData,
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -74,9 +82,6 @@ const Profile = (props)=>{
         // window.location = '/profile';
         });
 	};
-
-    
-
 
     return(
         <>
@@ -95,10 +100,10 @@ const Profile = (props)=>{
                             <br/>  
                     <Row className="profileContent"> 
                         <Col>
+                        <div>                          
+                            <img src={uploadedImage.current} alt="" height="200" width="200"/>
+                        <br/>
                         <div>
-                            <img ref={uploadedImage} alt="" />
-                            <br/>
-                            <div>
                                     <form onSubmit={handleSubmission} encType='multipart/form-data'>
                                     <input type="file" name="img" onChange={imgChange} />
                                     {isSelected ? ( 
