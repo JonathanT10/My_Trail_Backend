@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-// import Img from "./subComponents/img";
+import { useState, useEffect, useRef } from "react"
 import LD from "./subComponents/LD";
 import Location from "./subComponents/location";
 import Mood from "./subComponents/mood";
@@ -10,27 +9,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import Button from "react-bootstrap/Button";
 import '../components/css/post.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-// import { post } from "../../../routes/user";
+import ProfileImage from './subComponents/profileImageMini';
 
 
 const Post = (props) => {
-
-  const [posting, setPosting] = useState();
+    
   const jwt = localStorage.getItem('token');
   const userObject = jwtDecode(jwt);
+  const [user, setUser] = useState();
+  const [uploadedImage, setUploadedImage] = useState([]);
+  const [posting, setPosting] = useState();
+  const userId = useRef("");
 
-  const authUser = async ()=>{
-    const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}})
-    return user;
-}
+  const authUser = async (userObject, jwt)=>{
+      const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
+      setUser(user.data);  
+      setUploadedImage("http://localhost:5000/" + user.data.img);
+      console.log(uploadedImage);
+  }
 
-  const user = authUser();
+  useEffect(() => {
+      const jwt = localStorage.getItem('token');
+      const userObject = jwtDecode(jwt);
+      authUser(userObject, jwt);
+      userId.current = userObject;
+  },[]);
 
-  const uploadedImage = useRef(props.img);
+  // this axios call should get all posts from the database that match the user's ID, as well as all their friends postings. 
+  // from here, the individual information is sent to each sub component to display on the page in the correct places.
 
   const posts = async ()=>{
       user.friendsList.map(item => {
@@ -54,7 +63,7 @@ const Post = (props) => {
           </Row>
           <Row className="bottomRow">
             <Col sm={2} className="LD">
-              <LD props={user.LD}/>
+              <LD />
             </Col>
             <Col sm={10} className="secondColumn">
               <Row className="miniRow">
@@ -71,7 +80,7 @@ const Post = (props) => {
           </Row>
         </Col>
         <Col sm={4} className="profileColumn">         
-          <img ref={uploadedImage} alt="" />Profile Image Here
+          <ProfileImage className="profileImageBox" url={uploadedImage}/>
         </Col>
       </Row>
     </Container>

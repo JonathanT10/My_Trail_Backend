@@ -46,41 +46,36 @@ const NewPost = (props)=>{
 
 
     return(
-        <Container fluid className="newPostStyle">
-            <Row className="textBody">
+        <Container fluid>
+            <div className="formStyle">
+            <Row >
                 <Form onSubmit={(event)=>handleClick(event)}>
                 <Form.Group>
-                        <Form.Label className="loginText">New Post</Form.Label>
-                            <Form.Control type="post" placeholder="New Post"onChange={postChange}/>
-                            <Form.Text className="loginText">
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                        <Form.Label className="loginText">Location</Form.Label>
-                            <Form.Control type="location" placeholder="Location"onChange={locationChange}/>
-                            <Form.Text className="loginText">
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                        <Form.Label className="loginText">Mood</Form.Label>
-                            <Form.Control type="mood" placeholder="Mood"onChange={moodChange}/>
-                            <Form.Text className="loginText">
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                        <Form.Label className="loginText">Rating</Form.Label>
-                            <Form.Control type="rating" placeholder="Rating"onChange={ratingChange}/>
-                            <Form.Text className="loginText">
-                            </Form.Text>                            
+                    <Row>
+                        <Form.Label>New Post</Form.Label>
+                        <Form.Control type="post" placeholder="New Post"onChange={postChange}/>
+                    </Row>
+                    <Row>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control type="location" placeholder="Location"onChange={locationChange}/>
+                    </Row>
+                    <Row>
+                        <Form.Label>Mood</Form.Label>
+                        <Form.Control type="mood" placeholder="Mood"onChange={moodChange}/>                    
+                    </Row>    
+                    <Row>                        
+                        <Form.Label>Rating</Form.Label>
+                        <Form.Control type="rating" placeholder="Rating"onChange={ratingChange}/> 
+                    </Row>
+                    <Row className="formButton">
                         <Button className="btn btn-success btn-md float-right" variant="primary" type="submit">
                             Submit New Post
                         </Button>
-                        </Form.Group>
-                        <Row>
-            </Row>
+                    </Row>
+                </Form.Group>
                 </Form>
             </Row>
-         
+         </div>
         </Container>
     )
 }

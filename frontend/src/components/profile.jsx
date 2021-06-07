@@ -18,7 +18,6 @@ const Profile = (props)=>{
     const [user, setUser] = useState();
 	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
-	const [hasImage, setHasImage] = useState(false);
 
     const [uploadedImage, setUploadedImage] = useState("");
     const userId = useRef("");
@@ -28,7 +27,6 @@ const Profile = (props)=>{
         setUser(user.data);  
         setUploadedImage("http://localhost:5000/" + user.data.img);
         console.log(uploadedImage);
-        setHasImage(true);
     }
 
     useEffect(() => {
