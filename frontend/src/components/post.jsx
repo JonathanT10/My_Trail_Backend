@@ -74,9 +74,8 @@ const Post = (props) => {
       <Row className="topRow">
         <Col sm={8}>
           <Row className="textBody">
-            <TextBody props = {postA()}{...postAll.map(postAl =>{
-             <> {postAl.text}</>
-            })}/>
+            <TextBody />
+            
             
           </Row>
           <Row className="bottomRow">

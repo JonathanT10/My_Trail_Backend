@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Post from './post';
@@ -20,12 +20,7 @@ const Wall = (props)=>{
         console.log('wall user data:', user.data);
         return user;
     }
-
-    const postA = async ()=>{
-        const response = await axios.get(`http://localhost:5000/api/posts/`)
-        setPostAll(response.data)
-        console.log("wall",postAll);}
-
+ 
 
     const user = authUser();
 
@@ -40,7 +35,7 @@ const Wall = (props)=>{
     }
 
     // post needs to map all posts matching logged in user, and everyone on friends list
-
+  
     return(
         <>
         {user ?
@@ -55,7 +50,7 @@ const Wall = (props)=>{
                         </Button>  
                     </Row>               
                         <Row className="postStyle">
-                            <Post  user={user} postA={postA()}/>
+                            <Post  user={user} />
                         </Row>
                         <Row className="newPostStyle">
                             <NewPost  user={user}/>
