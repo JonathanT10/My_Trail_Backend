@@ -52,7 +52,7 @@ const NewPost = (props)=>{
             <Row >
                 <Form onSubmit={(event)=>handleClick(event)}>
                 <Form.Group>
-                    <Row>
+                    <Row fluid>
                         <Form.Label>New Post</Form.Label>
                         <Form.Control type="post" placeholder="New Post"onChange={postChange}/>
                     </Row>

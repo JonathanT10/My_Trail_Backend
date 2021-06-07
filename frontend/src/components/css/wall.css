@@ -49,12 +49,11 @@
 .newPStyle{
     padding-left: 60px;
     padding-top: 25px;
-    margin-left: 40px;
+    margin-left: 20px;
     margin-bottom: 20px;
-    margin-right: 940px;
-    justify-content: left;
+    margin-right: 150px;
+    float: right;
     color: white;
-
 }
 
 .friends{

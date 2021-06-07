@@ -109,11 +109,7 @@ const Profile = (props)=>{
     //             <li>{post.text}</li>
     //         </ul>
     //     })
-    // }
-
-    
-
-   
+    // }    
 
     return(
         <>

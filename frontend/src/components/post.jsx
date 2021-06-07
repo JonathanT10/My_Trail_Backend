@@ -38,7 +38,7 @@ const Post = (props) => {
       const userObject = jwtDecode(jwt);
       authUser(userObject, jwt);
       userId.current = userObject;
-  },[user]);
+  },[]);
 
   // this axios call should get all posts from the database that match the user's ID, as well as all their friends postings. 
   // from here, the individual information is sent to each sub component to display on the page in the correct places.
