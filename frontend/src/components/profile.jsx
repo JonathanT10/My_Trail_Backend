@@ -80,8 +80,8 @@ const Profile = (props)=>{
         })
         .catch(function (error) {
         console.log(error);
-        // window.location = '/profile';
-        });
+        });        
+        window.location = '/profile';
 	};
 
     return(
