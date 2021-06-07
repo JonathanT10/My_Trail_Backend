@@ -9,7 +9,7 @@
 
  const storage = multer.diskStorage({
      destination: function (req, file, cb) {
-         cb(null, './frontend/public/uploads/');
+         cb(null, './uploads/');
      },
      filename: function (req, file, cb) {
          cb(null, Date.now() + file.originalname);
@@ -167,7 +167,6 @@ router.put("/uploadmulter/:id", upload.single('img'), async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${ex}`);
 }
 });
-
 
 module.exports = router;
 

@@ -9,6 +9,7 @@ import FriendsList from './subComponents/friendsList';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import FormData from 'form-data';
+import ProfileImage from './subComponents/profileImage';
 
 const Profile = (props)=>{
     
@@ -17,14 +18,17 @@ const Profile = (props)=>{
     const [user, setUser] = useState();
 	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
+	const [hasImage, setHasImage] = useState(false);
 
-    const uploadedImage = useRef("");
+    const [uploadedImage, setUploadedImage] = useState("");
     const userId = useRef("");
 
     const authUser = async (userObject, jwt)=>{
         const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
         setUser(user.data);  
-        uploadedImage.current = (user.data.img);   
+        setUploadedImage("http://localhost:5000/" + user.data.img);
+        console.log(uploadedImage);
+        setHasImage(true);
     }
 
     useEffect(() => {
@@ -32,7 +36,7 @@ const Profile = (props)=>{
         const userObject = jwtDecode(jwt);
         authUser(userObject, jwt);
         userId.current = userObject;
-    },[isSelected]);
+    },[]);
         
     const logOut = () => {
         localStorage.removeItem('token');
@@ -44,10 +48,6 @@ const Profile = (props)=>{
     };
 
     const imgChange = (event) => {
-        console.log("previous image", user.img);
-        
-        uploadedImage.current = (user.img);
-
         console.log("logged in user", userId.current._id);
         console.log("img url", uploadedImage.current);
 
@@ -101,10 +101,10 @@ const Profile = (props)=>{
                             <br/>  
                     <Row className="profileContent"> 
                         <Col>
+                                <ProfileImage  url={uploadedImage}/>
                         <div>                          
-                            <img src={uploadedImage.current} alt="" height="200" width="200"/>
                         <br/>
-                        <div>
+                            <div>
                                     <form onSubmit={handleSubmission} encType='multipart/form-data'>
                                     <input type="file" name="img" onChange={imgChange} />
                                     {isSelected ? ( 
