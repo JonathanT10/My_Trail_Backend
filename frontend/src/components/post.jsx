@@ -22,6 +22,7 @@ const Post = (props) => {
   const [user, setUser] = useState();
   const [uploadedImage, setUploadedImage] = useState([]);
   const [posting, setPosting] = useState();
+  const [postAll, setPostAll] = useState();
   const userId = useRef("");
 
   const authUser = async (userObject, jwt)=>{
@@ -36,17 +37,32 @@ const Post = (props) => {
       const userObject = jwtDecode(jwt);
       authUser(userObject, jwt);
       userId.current = userObject;
-  },[]);
+  },[user]);
 
   // this axios call should get all posts from the database that match the user's ID, as well as all their friends postings. 
   // from here, the individual information is sent to each sub component to display on the page in the correct places.
 
   const posts = async ()=>{
       user.friendsList.map(item => {
-      const posting = axios.get(`http://localhost:5000/api/post/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
+      const posting = axios.get(`http://localhost:5000/api/posts/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
       console.log('post posting data:' , posting.data);
       return posting;
   });}
+
+  const postA = async ()=>{
+    const response = await axios.get(`http://localhost:5000/api/posts/`)
+    console.log(response.data);
+    setPostAll(response.data)
+  }
+
+  const clickLikes = async (posting) => {
+    posting.likes = posting.likes +1;
+  console.log("likes", posting.likes);
+  const response = await axios .put(`http://localhost:5000/api/posts/${posting._id}`,{headers: {Authorization : 'Bearer' + jwt}},
+  {likes: posting.likes, dislikes: posting.dislikes});
+  }
+
+  
   
   
   const logOut = () => {
@@ -54,12 +70,15 @@ const Post = (props) => {
       window.location = '/';
   }
 
+
+  postA();
   return (
     <Container fluid className="postStyle">
       <Row className="topRow">
         <Col sm={8}>
           <Row className="textBody">
-            <TextBody props = {posting}/>
+            <TextBody props = {postAll}/>
+            
           </Row>
           <Row className="bottomRow">
             <Col sm={2} className="LD">
@@ -76,6 +95,7 @@ const Post = (props) => {
               <Row className="miniRow">
                 <Reply />
               </Row>
+              <p onClick={()=> clickLikes(posting)}>Like</p>
             </Col>
           </Row>
         </Col>

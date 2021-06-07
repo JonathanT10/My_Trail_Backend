@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import './css/wall.css';
 import AboutMe from './subComponents/aboutMe';
 import FriendsList from './subComponents/friendsList';
@@ -10,6 +11,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import FormData from 'form-data';
 import ProfileImage from './subComponents/profileImage';
+import { publicDecrypt } from 'crypto';
 
 const Profile = (props)=>{
     
@@ -18,6 +20,7 @@ const Profile = (props)=>{
     const [user, setUser] = useState();
 	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
+    const [about, setAbout] = useState();
 
     const [uploadedImage, setUploadedImage] = useState("");
     const userId = useRef("");
@@ -65,7 +68,7 @@ const Profile = (props)=>{
         
         var config = {
             method: 'put',
-            url: `http://localhost:5000/api/user/uploadmulter/${userId.current._id}`,
+            url: `http://localhost:5000/api/user/uploadmulter/${userId.current._id}`, 
             data : formData,
             headers: {
               "Content-Type": "multipart/form-data",
@@ -81,6 +84,19 @@ const Profile = (props)=>{
         });        
         window.location = '/profile';
 	};
+
+    const onAboutChange = event => {
+        setAbout(event.target.value);
+        console.log("About Me Edit", about)
+    }
+
+    const onSubmit = async event => {
+        event.preventDefualt();
+        await axios .put(`http://localhost:5000/api/user/${user.Id}/aboutme`, {headers: {Authorization : 'Bearer' + jwt}},
+        {aboutMe: about});
+        window.location = '/profile';
+
+    }
 
     return(
         <>
@@ -124,6 +140,17 @@ const Profile = (props)=>{
                         <Col>            
                             <Row className="profileText">
                             <AboutMe aboutMe={user.aboutMe} />
+                            <Form onSubmit={(event)=>onSubmit(event)}>
+                            <Form.Group>
+                        <Form.Label className="loginText">Edit About Me</Form.Label>
+                            <Form.Control type="aboutme" placeholder="About Me"onChange={onAboutChange}/>
+                            <Form.Text className="loginText">
+                            </Form.Text>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Edit
+                        </Button> 
+                        </Form>
                             </Row>
                             <Row className="profileText">
                                 <FriendsList props={user} />
