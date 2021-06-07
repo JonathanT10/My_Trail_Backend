@@ -48,7 +48,7 @@ const NewPost = (props)=>{
 
     return(
         <Container fluid>
-            <div className="formStyle">
+            <div className="newPStyle">
             <Row >
                 <Form onSubmit={(event)=>handleClick(event)}>
                 <Form.Group>

@@ -46,3 +46,24 @@
 .formButton{
     padding-top: 10px;
 }
+.newPStyle{
+    padding-left: 60px;
+    padding-top: 25px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    margin-right: 940px;
+    justify-content: left;
+    color: white;
+
+}
+
+.friends{
+    color:white;
+    font-size: xx-large;
+    font-style: bold
+}
+
+.profileName{
+    color:white;
+    font-size: xx-large;
+}

@@ -18,7 +18,7 @@ const clickLikes = async (posts) => {
 
 const LD = (props)=>{
 
-    // console.log(props)
+    console.log(props)
 
     return(
         <div>

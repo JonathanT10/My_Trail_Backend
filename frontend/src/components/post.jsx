@@ -30,7 +30,7 @@ const Post = (props) => {
       const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
       setUser(user.data);  
       setUploadedImage("http://localhost:5000/" + user.data.img);
-      // console.log(uploadedImage);
+      console.log(uploadedImage);
   }
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Post = (props) => {
   const posts = async ()=>{
       user.friendsList.map(item => {
       const posting = axios.get(`http://localhost:5000/api/posts/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
-      // console.log('post posting data:' , posting.data);
+      console.log('post posting data:' , posting.data);
       return posting;
   });}
 
@@ -54,7 +54,7 @@ const Post = (props) => {
 
   const clickLikes = async (posting) => {
     posting.likes = posting.likes +1;
-  // console.log("likes", posting.likes);
+  console.log("likes", posting.likes);
   const response = await axios .put(`http://localhost:5000/api/posts/${posting._id}`,{headers: {Authorization : 'Bearer' + jwt}},
   {likes: posting.likes, dislikes: posting.dislikes});
   }

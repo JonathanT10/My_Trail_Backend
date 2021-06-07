@@ -21,6 +21,7 @@ const Profile = (props)=>{
 	const [selectedFile, setSelectedFile] = useState([]);
 	const [isSelected, setIsSelected] = useState(false);
     const [about, setAbout] = useState();
+    const [userP, setUserP] = useState([]);
 
     const [uploadedImage, setUploadedImage] = useState("");
     const userId = useRef("");
@@ -99,6 +100,21 @@ const Profile = (props)=>{
 
     }
 
+    // const userPost = async () => {
+    //    const userPos = await axios .get(`http://localhost:5000/api/posts/${user._id}`)
+      
+    //    setUserP([userPos.data]);
+    //      userP.map(post => {
+    //         return <ul className="postStyle">
+    //             <li>{post.text}</li>
+    //         </ul>
+    //     })
+    // }
+
+    
+
+   
+
     return(
         <>
         {user ?
@@ -116,6 +132,7 @@ const Profile = (props)=>{
                             <br/>  
                     <Row className="profileContent"> 
                         <Col>
+                        <Row className="profileName">{user.name}</Row>
                                 <ProfileImage  url={uploadedImage}/>
                         <div>                          
                         <br/>
@@ -141,6 +158,8 @@ const Profile = (props)=>{
                         <Col>            
                             <Row className="profileText">
                             <AboutMe aboutMe={user.aboutMe} />
+                            </Row>
+                            <Row>
                             <Form onSubmit={(event)=>onSubmit(event)}>
                             <Form.Group>
                         <Form.Label className="loginText">Edit About Me</Form.Label>
@@ -153,9 +172,10 @@ const Profile = (props)=>{
                         </Button> 
                         </Form>
                             </Row>
+                            <Row className="friends">Friends</Row>
                             <Row className="profileText">
                                 <FriendsList props={user} />
-                            </Row>                 
+                            </Row>            
                         </Col> 
                     </Row> 
                 </Container>
