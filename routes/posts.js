@@ -35,7 +35,7 @@ router.get('/:id', auth, async (req, res) => {
 
 // POST route for posts
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
 
         const posts = new Posts({

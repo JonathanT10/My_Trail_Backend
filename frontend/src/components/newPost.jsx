@@ -35,14 +35,15 @@ const NewPost = (props)=>{
 
     const handleClick = async (event) => {
         event.preventDefault();
-        console.log(post);
+        postPosting()}
+
+    const postPosting = async ()=> {
        await axios
-            .post(`http://localhost:5000/api/posts/`, {text: post, likes: 0, dislikes: 0, location: location, mood: mood, rating: rating,  userId: user._id}, {headers: {Authorization : 'Bearer' + jwt}})
-            .then(response => {
-                // console.log(response);
-                window.location = '/';
-            });
-    }
+            .post(`http://localhost:5000/api/posts/`,  { headers:  {Authorization : 'Bearer ' + jwt}});
+         
+                window.location = '/profile';
+            };
+    
 
 
     return(
