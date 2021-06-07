@@ -39,7 +39,7 @@ const NewPost = (props)=>{
        await axios
             .post(`http://localhost:5000/api/posts/`, {text: post, likes: 0, dislikes: 0, location: location, mood: mood, rating: rating,  userId: user._id}, {headers: {Authorization : 'Bearer' + jwt}})
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 window.location = '/';
             });
     }

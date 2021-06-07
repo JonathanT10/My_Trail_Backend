@@ -1,4 +1,4 @@
-// import {useState} from 'react';
+import {useState} from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Post from './post';
@@ -8,9 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import './css/wall.css';
 
+
 const Wall = (props)=>{
     const jwt = localStorage.getItem('token');
     const userObject = jwtDecode(jwt);
+    const [postAll, setPostAll] = useState([]);
 
     const authUser = async ()=>{
         console.log("auth trigger test wall")
@@ -18,6 +20,12 @@ const Wall = (props)=>{
         console.log('wall user data:', user.data);
         return user;
     }
+
+    const postA = async ()=>{
+        const response = await axios.get(`http://localhost:5000/api/posts/`)
+        setPostAll(response.data)
+        console.log("wall",postAll);}
+
 
     const user = authUser();
 
@@ -47,7 +55,7 @@ const Wall = (props)=>{
                         </Button>  
                     </Row>               
                         <Row className="postStyle">
-                            <Post  user={user}/>
+                            <Post  user={user} postA={postA()}/>
                         </Row>
                         <Row className="newPostStyle">
                             <NewPost  user={user}/>

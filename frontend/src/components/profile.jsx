@@ -91,9 +91,10 @@ const Profile = (props)=>{
     }
 
     const onSubmit = async event => {
-        event.preventDefualt();
-        await axios .put(`http://localhost:5000/api/user/${user.Id}/aboutme`, {headers: {Authorization : 'Bearer' + jwt}},
+        event.preventDefault();
+        await axios .put(`http://localhost:5000/api/user/${user._id}/aboutme`,
         {aboutMe: about});
+        console.log(about)
         window.location = '/profile';
 
     }
@@ -143,7 +144,7 @@ const Profile = (props)=>{
                             <Form onSubmit={(event)=>onSubmit(event)}>
                             <Form.Group>
                         <Form.Label className="loginText">Edit About Me</Form.Label>
-                            <Form.Control type="aboutme" placeholder="About Me"onChange={onAboutChange}/>
+                            <Form.Control type="aboutme" placeholder="Edit About Me"onChange={onAboutChange}/>
                             <Form.Text className="loginText">
                             </Form.Text>
                         </Form.Group>

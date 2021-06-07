@@ -1,6 +1,6 @@
 const ProfileImageMini = (props)=>{
 
-    console.log("img page", props.url);
+    // console.log("img page", props.url);
 
     return(
         <div className="d-flex p-2 col-example">

@@ -132,7 +132,7 @@ router.put('/:id/pendingfriends', auth, async (req, res) => {
 });
 
 // update about me section
-router.put('/:id/aboutme', auth, async (req, res) => {
+router.put('/:id/aboutme', async (req, res) => {
     try{
         const user = await User.findByIdAndUpdate(
             req.params.id,

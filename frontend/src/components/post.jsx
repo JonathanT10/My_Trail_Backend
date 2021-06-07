@@ -13,6 +13,7 @@ import '../components/css/post.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import ProfileImage from './subComponents/profileImageMini';
+import postA from './wall';
 
 
 const Post = (props) => {
@@ -22,14 +23,14 @@ const Post = (props) => {
   const [user, setUser] = useState();
   const [uploadedImage, setUploadedImage] = useState([]);
   const [posting, setPosting] = useState();
-  const [postAll, setPostAll] = useState();
+  const [postAll, setPostAll] = useState([]);
   const userId = useRef("");
 
   const authUser = async (userObject, jwt)=>{
       const user = await axios.get(`http://localhost:5000/api/user/${userObject._id}`, {headers: {Authorization : 'Bearer' + jwt}});
       setUser(user.data);  
       setUploadedImage("http://localhost:5000/" + user.data.img);
-      console.log(uploadedImage);
+      // console.log(uploadedImage);
   }
 
   useEffect(() => {
@@ -45,19 +46,15 @@ const Post = (props) => {
   const posts = async ()=>{
       user.friendsList.map(item => {
       const posting = axios.get(`http://localhost:5000/api/posts/${item}`, {headers: {Authorization : 'Bearer' + jwt}})
-      console.log('post posting data:' , posting.data);
+      // console.log('post posting data:' , posting.data);
       return posting;
   });}
 
-  const postA = async ()=>{
-    const response = await axios.get(`http://localhost:5000/api/posts/`)
-    console.log(response.data);
-    setPostAll(response.data)
-  }
+ 
 
   const clickLikes = async (posting) => {
     posting.likes = posting.likes +1;
-  console.log("likes", posting.likes);
+  // console.log("likes", posting.likes);
   const response = await axios .put(`http://localhost:5000/api/posts/${posting._id}`,{headers: {Authorization : 'Bearer' + jwt}},
   {likes: posting.likes, dislikes: posting.dislikes});
   }
@@ -71,13 +68,15 @@ const Post = (props) => {
   }
 
 
-  postA();
+
   return (
     <Container fluid className="postStyle">
       <Row className="topRow">
         <Col sm={8}>
           <Row className="textBody">
-            <TextBody props = {postAll}/>
+            <TextBody props = {postA()}{...postAll.map(postAl =>{
+             <> {postAl.text}</>
+            })}/>
             
           </Row>
           <Row className="bottomRow">
